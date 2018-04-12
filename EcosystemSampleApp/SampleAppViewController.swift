@@ -59,7 +59,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func newUserTapped(_ sender: Any) {
-        guard let appId = appIdField.text, let appKey = appKeyField.text else {
+        guard textFieldsValid() else {
             let alert = UIAlertController(title: "Missing Fields", message: "App id or key are missing", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Oh", style: .cancel, handler: { [weak alert] action in
                 alert?.dismiss(animated: true, completion: nil)
@@ -67,6 +67,8 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
             return
         }
+        let appId = appIdField.text
+        let appKey = appKeyField.text
         UserDefaults.standard.set(appKey, forKey: "SAAppKey")
         UserDefaults.standard.set(appId, forKey: "SAAppId")
         let numberIndex = lastUser.index(after: lastUser.range(of: "_", options: [.backwards])!.lowerBound)
@@ -82,7 +84,8 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func continueTapped(_ sender: Any) {
         guard   let appId = UserDefaults.standard.string(forKey: "SAAppId"),
-                let appKey = UserDefaults.standard.string(forKey: "SAAppKey") else {
+                let appKey = UserDefaults.standard.string(forKey: "SAAppKey"),
+                (appId.isEmpty || appKey.isEmpty) == false else {
             let alert = UIAlertController(title: "No", message: "Please start a new user", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
                 alert?.dismiss(animated: true, completion: nil)
@@ -94,6 +97,14 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             Kin.shared.start(apiKey: appKey, userId: lastUser, appId: appId)
         }
         Kin.shared.launchMarketplace(from: self)
+    }
+    
+    func textFieldsValid() -> Bool {
+        guard   let appId = appIdField.text, let appKey = appKeyField.text,
+                (appId.isEmpty || appKey.isEmpty) == false else {
+                return false
+        }
+        return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -120,6 +131,10 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        guard (self.presentedViewController is UIAlertController) == false else {
+            super.dismiss(animated: flag, completion: completion)
+            return
+        }
         super.dismiss(animated: flag, completion: {
             completion?()
             let alert = UIAlertController(title: "Please Restart", message: "Please restart the sample app", preferredStyle: .alert)
