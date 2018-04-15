@@ -1,27 +1,36 @@
 PODS:
-  - KinEcosystem (0.2.0):
+  - KinEcosystem (0.2.1):
     - KinSDK (= 0.7.0)
-    - SimpleCoreDataStack (= 0.1.2)
+    - SimpleCoreDataStack (= 0.1.3)
   - KinSDK (0.7.0):
     - StellarKit (= 0.3.0)
   - KinUtil (0.0.4)
-  - SimpleCoreDataStack (0.1.2)
+  - SimpleCoreDataStack (0.1.3)
   - StellarErrors (0.2.7)
   - StellarKit (0.3.0):
     - KinUtil (= 0.0.4)
     - StellarErrors (= 0.2.7)
 
 DEPENDENCIES:
-  - KinEcosystem (= 0.2.0)
+  - KinEcosystem (= 0.2.1)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - KinEcosystem
+    - KinSDK
+    - KinUtil
+    - SimpleCoreDataStack
+    - StellarErrors
+    - StellarKit
 
 SPEC CHECKSUMS:
-  KinEcosystem: 44a54e7a89136d822bf66d6cd924a774b9975fdd
+  KinEcosystem: 48a1b2eb411bfff8faef567dec3725df6a054b29
   KinSDK: 8c32e94ed3e6278d787367418bd5ce21d7c681f9
   KinUtil: 0d8c5a1656931599daa8b97a95e65837220b4037
-  SimpleCoreDataStack: ce1c66bbc056dbd9fc19ed02e9d9c77c21006cb7
+  SimpleCoreDataStack: de6f0020441ee36fe5faa51f0a521dae2afe25f6
   StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
   StellarKit: db153cd2e9003a57170db259e6bdf50c084cf75f
 
-PODFILE CHECKSUM: c10b0578527ec80a104595fb1690fe7bf82bd5c7
+PODFILE CHECKSUM: 58d24d9332063d26886920fb7b81fc456e0b07a8
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0

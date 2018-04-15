@@ -106,7 +106,6 @@
 				E942F91620346A6200DD4B8E /* Frameworks */,
 				E942F91720346A6200DD4B8E /* Resources */,
 				E12CA08F948E3654FCFD069B /* [CP] Embed Pods Frameworks */,
-				92BCF2CD1A17600A525B057A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -165,21 +164,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		92BCF2CD1A17600A525B057A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E12CA08F948E3654FCFD069B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,7 +174,7 @@
 				"${BUILT_PRODUCTS_DIR}/KinEcosystem/KinEcosystem.framework",
 				"${BUILT_PRODUCTS_DIR}/KinSDK/KinSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/KinUtil/KinUtil.framework",
-				"${BUILT_PRODUCTS_DIR}/SimpleCoreDataStack/SimpleCoreDataStack.framework",
+				"${BUILT_PRODUCTS_DIR}/SimpleCoreDataStack/CoreDataStack.framework",
 				"${BUILT_PRODUCTS_DIR}/StellarErrors/StellarErrors.framework",
 				"${BUILT_PRODUCTS_DIR}/StellarKit/StellarKit.framework",
 			);
@@ -199,7 +183,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinEcosystem.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinUtil.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleCoreDataStack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreDataStack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StellarErrors.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StellarKit.framework",
 			);
