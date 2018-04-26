@@ -34,7 +34,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
     var appKey: String? {
         get {
-            if  let path = Bundle.main.path(forResource: "ESSAConfig", ofType: "plist"),
+            if  let path = Bundle.main.path(forResource: "config", ofType: "plist"),
                 let key = NSDictionary(contentsOfFile: path)?["appKey"] as? String,
                 key.isEmpty == false {
                 return key
@@ -45,7 +45,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
     var appId: String? {
         get {
-            if  let path = Bundle.main.path(forResource: "ESSAConfig", ofType: "plist"),
+            if  let path = Bundle.main.path(forResource: "config", ofType: "plist"),
                 let id = NSDictionary(contentsOfFile: path)?["appId"] as? String,
                 id.isEmpty == false {
                 return id
