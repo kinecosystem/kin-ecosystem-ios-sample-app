@@ -13,7 +13,7 @@
 		E942F92220346A6200DD4B8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92020346A6200DD4B8E /* Main.storyboard */; };
 		E942F92420346A6200DD4B8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942F92320346A6200DD4B8E /* Assets.xcassets */; };
 		E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */; };
-		E9C952A22091E8A30000E093 /* ESSAConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* ESSAConfig.plist */; };
+		E9C952A22091E8A30000E093 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		E942F92320346A6200DD4B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E942F92620346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E942F92820346A6200DD4B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9C952A12091E8A30000E093 /* ESSAConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ESSAConfig.plist; sourceTree = "<group>"; };
+		E9C952A12091E8A30000E093 /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 				E942F92320346A6200DD4B8E /* Assets.xcassets */,
 				E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */,
 				E942F92820346A6200DD4B8E /* Info.plist */,
-				E9C952A12091E8A30000E093 /* ESSAConfig.plist */,
+				E9C952A12091E8A30000E093 /* config.plist */,
 			);
 			path = EcosystemSampleApp;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9C952A22091E8A30000E093 /* ESSAConfig.plist in Resources */,
+				E9C952A22091E8A30000E093 /* config.plist in Resources */,
 				E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */,
 				E942F92420346A6200DD4B8E /* Assets.xcassets in Resources */,
 				E942F92220346A6200DD4B8E /* Main.storyboard in Resources */,
