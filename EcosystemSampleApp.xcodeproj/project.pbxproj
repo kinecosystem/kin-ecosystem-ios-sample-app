@@ -13,6 +13,7 @@
 		E942F92220346A6200DD4B8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92020346A6200DD4B8E /* Main.storyboard */; };
 		E942F92420346A6200DD4B8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942F92320346A6200DD4B8E /* Assets.xcassets */; };
 		E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */; };
+		E9C952A22091E8A30000E093 /* ESSAConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* ESSAConfig.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		E942F92320346A6200DD4B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E942F92620346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E942F92820346A6200DD4B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9C952A12091E8A30000E093 /* ESSAConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ESSAConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				E942F92320346A6200DD4B8E /* Assets.xcassets */,
 				E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */,
 				E942F92820346A6200DD4B8E /* Info.plist */,
+				E9C952A12091E8A30000E093 /* ESSAConfig.plist */,
 			);
 			path = EcosystemSampleApp;
 			sourceTree = "<group>";
@@ -106,6 +109,7 @@
 				E942F91620346A6200DD4B8E /* Frameworks */,
 				E942F91720346A6200DD4B8E /* Resources */,
 				E12CA08F948E3654FCFD069B /* [CP] Embed Pods Frameworks */,
+				FE4E9A3E86D653DD7F5F6E57 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9C952A22091E8A30000E093 /* ESSAConfig.plist in Resources */,
 				E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */,
 				E942F92420346A6200DD4B8E /* Assets.xcassets in Resources */,
 				E942F92220346A6200DD4B8E /* Main.storyboard in Resources */,
@@ -171,6 +176,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
+				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
 				"${BUILT_PRODUCTS_DIR}/KinEcosystem/KinEcosystem.framework",
 				"${BUILT_PRODUCTS_DIR}/KinSDK/KinSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/KinUtil/KinUtil.framework",
@@ -180,6 +187,8 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinEcosystem.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinUtil.framework",
@@ -208,6 +217,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE4E9A3E86D653DD7F5F6E57 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

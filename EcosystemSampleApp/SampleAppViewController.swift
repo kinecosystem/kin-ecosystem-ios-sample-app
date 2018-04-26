@@ -27,11 +27,32 @@ public extension DispatchQueue {
 
 class SampleAppViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var appIdField: UITextField!
-    @IBOutlet weak var appKeyField: UITextField!
+
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var currentUserLabel: UILabel!
     @IBOutlet weak var newUserButton: UIButton!
+    
+    var appKey: String? {
+        get {
+            if  let path = Bundle.main.path(forResource: "ESSAConfig", ofType: "plist"),
+                let key = NSDictionary(contentsOfFile: path)?["appKey"] as? String,
+                key.isEmpty == false {
+                return key
+            }
+            return nil
+        }
+    }
+    
+    var appId: String? {
+        get {
+            if  let path = Bundle.main.path(forResource: "ESSAConfig", ofType: "plist"),
+                let id = NSDictionary(contentsOfFile: path)?["appId"] as? String,
+                id.isEmpty == false {
+                return id
+            }
+            return nil
+        }
+    }
     
     var lastUser: String {
         get {
@@ -44,90 +65,46 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appId = UserDefaults.standard.string(forKey: "SAAppId")
-        let appKey = UserDefaults.standard.string(forKey: "SAAppKey")
-        if let id = appId {
-            appIdField.text = id
-        }
-        if let key = appKey {
-            appKeyField.text = key
-        }
-        setContinueEnabled(appId != nil && appKey != nil)
         currentUserLabel.text = lastUser
     }
     
+    func alertConfigIssue() {
+        let alert = UIAlertController(title: "Config Missing", message: "an app id and app key (or a jwt) is required in order to use the sample app. Please refer to the readme in the sample app repo for more information", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
+            alert?.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func newUserTapped(_ sender: Any) {
-        guard textFieldsValid() else {
-            let alert = UIAlertController(title: "Missing Fields", message: "App id or key are missing", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Oh", style: .cancel, handler: { [weak alert] action in
-                alert?.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
+        guard let id = appId, let key = appKey else {
+            alertConfigIssue()
             return
         }
-        let appId = appIdField.text
-        let appKey = appKeyField.text
-        UserDefaults.standard.set(appKey, forKey: "SAAppKey")
-        UserDefaults.standard.set(appId, forKey: "SAAppId")
         let numberIndex = lastUser.index(after: lastUser.range(of: "_", options: [.backwards])!.lowerBound)
         let plusone = Int(lastUser.suffix(from: numberIndex))! + 1
         let newUser = String(lastUser.prefix(upTo: numberIndex) + "\(plusone)")
         UserDefaults.standard.set(newUser, forKey: "SALastUser")
         currentUserLabel.text = lastUser
         DispatchQueue.once(token: "sharedInit") {
-            Kin.shared.start(apiKey: appKeyField.text!, userId: newUser, appId: appIdField.text!)
+            Kin.shared.start(apiKey: key, userId: newUser, appId: id)
         }
         Kin.shared.launchMarketplace(from: self)
     }
     
     @IBAction func continueTapped(_ sender: Any) {
-        guard   let appId = UserDefaults.standard.string(forKey: "SAAppId"),
-                let appKey = UserDefaults.standard.string(forKey: "SAAppKey"),
-                (appId.isEmpty || appKey.isEmpty) == false else {
-            let alert = UIAlertController(title: "No", message: "Please start a new user", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
-                alert?.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
+        guard let id = appId, let key = appKey else {
+            alertConfigIssue()
             return
         }
         DispatchQueue.once(token: "sharedInit") {
-            Kin.shared.start(apiKey: appKey, userId: lastUser, appId: appId)
+            Kin.shared.start(apiKey: key, userId: lastUser, appId: id)
         }
         Kin.shared.launchMarketplace(from: self)
-    }
-    
-    func textFieldsValid() -> Bool {
-        guard   let appId = appIdField.text, let appKey = appKeyField.text,
-                (appId.isEmpty || appKey.isEmpty) == false else {
-                return false
-        }
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let new = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
-        let appId = UserDefaults.standard.string(forKey: "SAAppId")
-        let appKey = UserDefaults.standard.string(forKey: "SAAppKey")
-        switch textField {
-        case appKeyField:
-            setContinueEnabled(appIdField.text == appId && new == appKey)
-        default:
-            setContinueEnabled(new == appId && appKeyField.text == appKey)
-        }
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return false
-    }
-    
-    func setContinueEnabled(_ enable: Bool) {
-        continueButton.alpha = enable ? 1.0 : 0.4
-        continueButton.isEnabled = enable
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
