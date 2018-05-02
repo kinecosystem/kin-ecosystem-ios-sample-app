@@ -1,6 +1,6 @@
 PODS:
   - Base64 (1.1.2)
-  - JWT (2.2.0):
+  - JWT (3.0.0-beta.8):
     - Base64 (~> 1.1.2)
   - KinEcosystem (0.2.5):
     - KinSDK (= 0.7.4)
@@ -15,12 +15,12 @@ PODS:
     - StellarErrors (= 0.2.7)
 
 DEPENDENCIES:
-  - JWT
+  - JWT (= 3.0.0-beta.8)
   - KinEcosystem (= 0.2.5)
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  JWT: cf73c0ab0dac762df3de8a3f1164352089d97780
+  JWT: 6e7ec473b6febcb7498affc84f0e75d393914411
   KinEcosystem: 65f1d0ca93407d68ce154dd5fd634fc0779c0624
   KinSDK: 4e93dc338ce4ed00714841a237bfeda9b7146ee7
   KinUtil: 1bc7b10d5dec37d268f9c3d18a54b87eba7db2e8
@@ -28,6 +28,6 @@ SPEC CHECKSUMS:
   StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
   StellarKit: 11bc198fd42f9cf975e3ce91be65ea83eb6db190
 
-PODFILE CHECKSUM: 248488f7671a8e9bcacc969d0279ed58c4ed08bd
+PODFILE CHECKSUM: 1c1a369ea414ea90484fe01ba8c116709e0f1947
 
 COCOAPODS: 1.4.0.rc.1

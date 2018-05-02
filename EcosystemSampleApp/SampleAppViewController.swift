@@ -8,6 +8,7 @@
 
 import UIKit
 import KinEcosystem
+import JWT
 
 public extension DispatchQueue {
     
@@ -33,25 +34,19 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newUserButton: UIButton!
     
     var appKey: String? {
-        get {
-            if  let path = Bundle.main.path(forResource: "config", ofType: "plist"),
-                let key = NSDictionary(contentsOfFile: path)?["appKey"] as? String,
-                key.isEmpty == false {
-                return key
-            }
-            return nil
-        }
+        return configValue(for: "appKey", of: String.self)
     }
     
     var appId: String? {
-        get {
-            if  let path = Bundle.main.path(forResource: "config", ofType: "plist"),
-                let id = NSDictionary(contentsOfFile: path)?["appId"] as? String,
-                id.isEmpty == false {
-                return id
-            }
-            return nil
-        }
+        return configValue(for: "appId", of: String.self)
+    }
+    
+    var useJWT: Bool {
+        return configValue(for: "IS_JWT_REGISTRATION", of: Bool.self) ?? false
+    }
+    
+    var privateKey: String? {
+        return configValue(for: "RS512_PRIVATE_KEY", of: String.self)
     }
     
     var lastUser: String {
@@ -65,7 +60,13 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
+    func configValue<T>(for key: String, of type: T.Type) -> T? {
+        if  let path = Bundle.main.path(forResource: "defaultConfig", ofType: "plist"),
+            let value = NSDictionary(contentsOfFile: path)?[key] as? T {
+            return value
+        }
+        return nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,30 +82,93 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func newUserTapped(_ sender: Any) {
-        guard let id = appId, let key = appKey else {
-            alertConfigIssue()
-            return
-        }
+        
         let numberIndex = lastUser.index(after: lastUser.range(of: "_", options: [.backwards])!.lowerBound)
         let plusone = Int(lastUser.suffix(from: numberIndex))! + 1
         let newUser = String(lastUser.prefix(upTo: numberIndex) + "\(plusone)")
-        UserDefaults.standard.set(newUser, forKey: "SALastUser")
-        currentUserLabel.text = lastUser
-        DispatchQueue.once(token: "sharedInit") {
-            Kin.shared.start(apiKey: key, userId: newUser, appId: id)
-        }
-        Kin.shared.launchMarketplace(from: self)
-    }
-    
-    @IBAction func continueTapped(_ sender: Any) {
-        guard let id = appId, let key = appKey else {
+        
+        guard let id = appId else {
             alertConfigIssue()
             return
         }
-        DispatchQueue.once(token: "sharedInit") {
-            Kin.shared.start(apiKey: key, userId: lastUser, appId: id)
+        
+        if useJWT {
+            jwtLoginWith(newUser, id: id)
+        } else {
+            guard let key = appKey else {
+                alertConfigIssue()
+                return
+            }
+            DispatchQueue.once(token: "sharedInit") {
+                Kin.shared.start(apiKey: key, userId: newUser, appId: id)
+            }
+            
         }
+        UserDefaults.standard.set(newUser, forKey: "SALastUser")
         Kin.shared.launchMarketplace(from: self)
+        currentUserLabel.text = lastUser
+        
+    }
+    
+    @IBAction func continueTapped(_ sender: Any) {
+        guard let id = appId else {
+            alertConfigIssue()
+            return
+        }
+        
+        if useJWT {
+            jwtLoginWith(lastUser, id: id)
+        } else {
+            guard let key = appKey else {
+                alertConfigIssue()
+                return
+            }
+            DispatchQueue.once(token: "sharedInit") {
+                Kin.shared.start(apiKey: key, userId: lastUser, appId: id)
+            }
+        }
+        
+        Kin.shared.launchMarketplace(from: self)
+    }
+    
+    func jwtLoginWith(_ user: String, id: String) {
+        
+        guard   let jwtPKey = privateKey,
+            let key = try? JWTCryptoKeyPrivate(pemEncoded: jwtPKey, parameters: nil),
+            let holder = (JWTAlgorithmRSFamilyDataHolder().signKey(key)?.secretData(jwtPKey.data(using: .utf8))?.algorithmName(JWTAlgorithmNameRS512) as? JWTAlgorithmRSFamilyDataHolder) else {
+                alertConfigIssue()
+                return
+        }
+
+        let claims = JWTClaimsSet()
+        let issuedAt = Date()
+        claims.issuer = id
+        claims.issuedAt = issuedAt
+        claims.expirationDate = issuedAt.addingTimeInterval(86400.0)
+        claims.subject = "register"
+
+        guard var claimsDict = JWTClaimsSetSerializer.dictionary(with: claims) else {
+            alertConfigIssue()
+            return
+        }
+
+        claimsDict["user_id"] = user
+
+        let result = JWTEncodingBuilder.encodePayload(claimsDict)
+            .headers(["alg": "RS512",
+                      "typ": "jwt",
+                      "kid" : "default-rs512"])?
+            .addHolder(holder)?
+            .result
+
+        guard let encoded = result?.successResult?.encoded else {
+            alertConfigIssue()
+            return
+        }
+        
+        DispatchQueue.once(token: "sharedInit") {
+            Kin.shared.start(apiKey: "", userId: user, appId: id, jwt: encoded)
+        }
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -120,7 +184,6 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             }))
             self.present(alert, animated: true, completion: nil)
         })
-        
     }
 }
 

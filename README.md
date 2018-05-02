@@ -7,11 +7,14 @@ This app showcases the use of the [Kin Ecosystem iOS SDK](https://github.com/kin
 2. Run `pod install`
 
 ## Usage
-1. Obtain an app key and app id from the Kin Foundation.
-2. Once running, enter your key and id in the fields on the app's start page.
-3. Select `New User`
+The sample app can authenticate with the kin ecosystem using one of two ways:
+1. [JWT](http://jwt.io)
+2. An app id and developer key</br>
 
-In later sessions you'd be able to choose between continuing with the last logged in user, or starting a new one.
+For this sample app, a default credentials plist is provided (`defaultConfig.plist`) which uses test credentials environment with both options available.
+
+> Note: the private key used in the credentials plist is for test purposes only.</br>
+You should definitely keep your production private key in a safer and more secure place.
 
 ### Disclaimer
 > This is a very minimal app designed just to launch the Kin Marketplace and allow interacting with all of Kin SDK's appearance on hosting apps. It is maintained from time to time, but at a low priority.

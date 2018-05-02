@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KinEcosystem
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

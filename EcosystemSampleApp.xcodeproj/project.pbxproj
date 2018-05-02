@@ -13,7 +13,7 @@
 		E942F92220346A6200DD4B8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92020346A6200DD4B8E /* Main.storyboard */; };
 		E942F92420346A6200DD4B8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942F92320346A6200DD4B8E /* Assets.xcassets */; };
 		E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */; };
-		E9C952A22091E8A30000E093 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* config.plist */; };
+		E9C952A22091E8A30000E093 /* defaultConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* defaultConfig.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		E942F92320346A6200DD4B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E942F92620346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E942F92820346A6200DD4B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9C952A12091E8A30000E093 /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
+		E9C952A12091E8A30000E093 /* defaultConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = defaultConfig.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,7 @@
 				E942F92320346A6200DD4B8E /* Assets.xcassets */,
 				E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */,
 				E942F92820346A6200DD4B8E /* Info.plist */,
-				E9C952A12091E8A30000E093 /* config.plist */,
+				E9C952A12091E8A30000E093 /* defaultConfig.plist */,
 			);
 			path = EcosystemSampleApp;
 			sourceTree = "<group>";
@@ -132,6 +132,7 @@
 				TargetAttributes = {
 					E942F91820346A6200DD4B8E = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -159,7 +160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9C952A22091E8A30000E093 /* config.plist in Resources */,
+				E9C952A22091E8A30000E093 /* defaultConfig.plist in Resources */,
 				E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */,
 				E942F92420346A6200DD4B8E /* Assets.xcassets in Resources */,
 				E942F92220346A6200DD4B8E /* Main.storyboard in Resources */,
@@ -317,12 +318,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -369,10 +371,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -382,13 +385,14 @@
 			baseConfigurationReference = AFFFBF1EF8563EAA1B115E26 /* Pods-EcosystemSampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Kik.EcosystemSampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -399,10 +403,10 @@
 			baseConfigurationReference = 6C1F0762B7EA436EC8BD8325 /* Pods-EcosystemSampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Kik.EcosystemSampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
