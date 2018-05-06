@@ -14,6 +14,7 @@
 		E942F92220346A6200DD4B8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92020346A6200DD4B8E /* Main.storyboard */; };
 		E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */; };
 		E9C952A22091E8A30000E093 /* defaultConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* defaultConfig.plist */; };
+		E9DB9DE1209F3EBF00AD9EB1 /* fabric.txt in Resources */ = {isa = PBXBuildFile; fileRef = E9DB9DE0209F3EBF00AD9EB1 /* fabric.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		E942F92620346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E942F92820346A6200DD4B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9C952A12091E8A30000E093 /* defaultConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = defaultConfig.plist; sourceTree = "<group>"; };
+		E9DB9DE0209F3EBF00AD9EB1 /* fabric.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fabric.txt; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */,
 				E942F92820346A6200DD4B8E /* Info.plist */,
 				E9C952A12091E8A30000E093 /* defaultConfig.plist */,
+				E9DB9DE0209F3EBF00AD9EB1 /* fabric.txt */,
 			);
 			path = EcosystemSampleApp;
 			sourceTree = "<group>";
@@ -109,7 +112,7 @@
 				E942F91620346A6200DD4B8E /* Frameworks */,
 				E942F91720346A6200DD4B8E /* Resources */,
 				B20DEF916A9800DFE0AE4D76 /* [CP] Embed Pods Frameworks */,
-				E97303D5209B1EE100CD7FD9 /* ShellScript */,
+				E9DB9DDF209F3C7400AD9EB1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -133,7 +136,6 @@
 					E942F91820346A6200DD4B8E = {
 						CreatedOnToolsVersion = 9.1;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -163,6 +165,7 @@
 				E93F448A209A07DA00803FFB /* Assets.xcassets in Resources */,
 				E9C952A22091E8A30000E093 /* defaultConfig.plist in Resources */,
 				E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */,
+				E9DB9DE1209F3EBF00AD9EB1 /* fabric.txt in Resources */,
 				E942F92220346A6200DD4B8E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,7 +223,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E97303D5209B1EE100CD7FD9 /* ShellScript */ = {
+		E9DB9DDF209F3C7400AD9EB1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -231,7 +234,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b7647b5860d29039e16910e281fcf8d9cad21bb b4a341bc9828ad45fb7e9e9321ef56f13f8661c2af46026fd77e6716d5c26367";
+			shellScript = "apiKey=$(sed -n '1p' < fabric.txt)\nsecretKey=$(sed -n '2p' < fabric.txt)\n\n/usr/libexec/PlistBuddy -c \"Set :Fabric:APIKey string $apiKey\" $(PROJECT_DIR)/Info.plist\n\n\"${PODS_ROOT}/Fabric/run\" $apiKey $secretKey";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -384,7 +387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -393,6 +396,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -402,7 +406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -410,6 +414,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
