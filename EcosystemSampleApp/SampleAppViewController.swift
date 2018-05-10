@@ -10,28 +10,14 @@ import UIKit
 import KinEcosystem
 import JWT
 
-public extension DispatchQueue {
-    
-    private static var _onceTracker = [String]()
-    
-    public class func once(token: String, block:() -> ()) {
-        objc_sync_enter(self); defer { objc_sync_exit(self) }
-        
-        if _onceTracker.contains(token) {
-            return
-        }
-        
-        _onceTracker.append(token)
-        block()
-    }
-}
-
 class SampleAppViewController: UIViewController, UITextFieldDelegate {
-
-
+    
+    
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var currentUserLabel: UILabel!
     @IBOutlet weak var newUserButton: UIButton!
+    @IBOutlet weak var spendIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var buyStickerButton: UIButton!
     
     var appKey: String? {
         return configValue(for: "appKey", of: String.self)
@@ -99,9 +85,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 alertConfigIssue()
                 return
             }
-            DispatchQueue.once(token: "sharedInit") {
-                Kin.shared.start(apiKey: key, userId: newUser, appId: id)
-            }
+            Kin.shared.start(apiKey: key, userId: newUser, appId: id)
             
         }
         UserDefaults.standard.set(newUser, forKey: "SALastUser")
@@ -123,52 +107,31 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 alertConfigIssue()
                 return
             }
-            DispatchQueue.once(token: "sharedInit") {
-                Kin.shared.start(apiKey: key, userId: lastUser, appId: id)
-            }
+            Kin.shared.start(apiKey: key, userId: lastUser, appId: id)
+            
         }
         
         Kin.shared.launchMarketplace(from: self)
     }
     
-    func jwtLoginWith(_ user: String, id: String) {
+    func jwtLoginWith(_ user: String, id: String, completion: ((Error?) -> ())? = nil) {
         
-        guard   let jwtPKey = privateKey,
-            let key = try? JWTCryptoKeyPrivate(pemEncoded: jwtPKey, parameters: nil),
-            let holder = (JWTAlgorithmRSFamilyDataHolder().signKey(key)?.secretData(jwtPKey.data(using: .utf8))?.algorithmName(JWTAlgorithmNameRS512) as? JWTAlgorithmRSFamilyDataHolder) else {
-                alertConfigIssue()
-                return
-        }
-
-        let claims = JWTClaimsSet()
-        let issuedAt = Date()
-        claims.issuer = id
-        claims.issuedAt = issuedAt
-        claims.expirationDate = issuedAt.addingTimeInterval(86400.0)
-        claims.subject = "register"
-
-        guard var claimsDict = JWTClaimsSetSerializer.dictionary(with: claims) else {
-            alertConfigIssue()
-            return
-        }
-
-        claimsDict["user_id"] = user
-
-        let result = JWTEncodingBuilder.encodePayload(claimsDict)
-            .headers(["alg": "RS512",
-                      "typ": "jwt",
-                      "kid" : "default-rs512"])?
-            .addHolder(holder)?
-            .result
-
-        guard let encoded = result?.successResult?.encoded else {
+        guard  let jwtPKey = privateKey else {
             alertConfigIssue()
             return
         }
         
-        DispatchQueue.once(token: "sharedInit") {
-            Kin.shared.start(apiKey: "", userId: user, appId: id, jwt: encoded)
+        guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
+                                                    "typ": "jwt",
+                                                    "kid" : "default-rs512"],
+                                           body: ["user_id":user],
+                                           subject: "register",
+                                           id: id, privateKey: jwtPKey) else {
+                                            alertConfigIssue()
+                                            return
         }
+        
+        Kin.shared.start(apiKey: "", userId: user, appId: id, jwt: encoded, completion: completion)
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -184,6 +147,63 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             }))
             self.present(alert, animated: true, completion: nil)
         })
+    }
+    
+    @IBAction func buyStickerTapped(_ sender: Any) {
+        
+        guard   let id = appId,
+            let jwtPKey = privateKey else {
+                alertConfigIssue()
+                return
+        }
+        
+        jwtLoginWith(lastUser, id: id) { [weak self] error in
+            guard let this = self else { return }
+            guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
+                                                        "typ": "jwt",
+                                                        "kid" : "default-rs512"],
+                                               body: ["offer":["id":"WOWOMGCRAZY"+"\(arc4random_uniform(999999))",
+                                                "title":"Native Spend",
+                                                "description":"A native spend example",
+                                                "amount":10,
+                                                "wallet_address": "GDSXU3DVE3M3CTWXGN3DOLJHRDQLII3WV3GUGK5ZDQGWWDHKJFHRVGNB"]],
+                                               subject: "spend",
+                                               id: id, privateKey: jwtPKey) else {
+                                                this.alertConfigIssue()
+                                                return
+            }
+            this.buyStickerButton.isEnabled = false
+            this.spendIndicator.startAnimating()
+            _ = Kin.shared.purchase(offerJWT: encoded) { jwtConfirmation, error in
+                DispatchQueue.main.async {
+                    this.buyStickerButton.isEnabled = true
+                    this.spendIndicator.stopAnimating()
+                    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+                    if let confirm = jwtConfirmation {
+                        alert.title = "Success"
+                        alert.message = "Purchase complete. You can view the confirmation jwt or tap 'Continue' to enter the marketplace."
+                        alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default, handler: { [weak alert] action in
+                            UIApplication.shared.openURL(URL(string:"https://jwt.io/#debugger-io?token=\(confirm)")!)
+                            alert?.dismiss(animated: true, completion: nil)
+                        }))
+                        //
+                    } else if let e = error {
+                        alert.title = "Failure"
+                        alert.message = "Purchase failed (\(e))"
+                    }
+                    
+                    alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
+                        alert?.dismiss(animated: true, completion: nil)
+                    }))
+                    
+                    this.present(alert, animated: true, completion: nil)
+                }
+                
+            }
+        }
+        
+        
+        
     }
 }
 

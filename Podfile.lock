@@ -5,7 +5,7 @@ PODS:
   - Fabric (1.7.6)
   - JWT (3.0.0-beta.8):
     - Base64 (~> 1.1.2)
-  - KinEcosystem (0.2.7):
+  - KinEcosystem (0.2.8):
     - KinSDK (= 0.7.4)
     - SimpleCoreDataStack (= 0.1.4)
   - KinSDK (0.7.4):
@@ -21,7 +21,7 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - JWT (= 3.0.0-beta.8)
-  - KinEcosystem (= 0.2.7)
+  - KinEcosystem (= 0.2.8)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -41,13 +41,13 @@ SPEC CHECKSUMS:
   Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
   Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   JWT: 6e7ec473b6febcb7498affc84f0e75d393914411
-  KinEcosystem: a75bb6892302299ce2dd4ce73c5b2c2b2377da47
+  KinEcosystem: 5ed61696e173121be2355fc8ebe86ac882f82b61
   KinSDK: 4e93dc338ce4ed00714841a237bfeda9b7146ee7
   KinUtil: 1bc7b10d5dec37d268f9c3d18a54b87eba7db2e8
   SimpleCoreDataStack: e8c9ed9077412acbea3e19cbb11df46cbfb2c2d6
   StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
   StellarKit: 11bc198fd42f9cf975e3ce91be65ea83eb6db190
 
-PODFILE CHECKSUM: 4b162910749ce44d8b30aa23cdbef9768fddacbb
+PODFILE CHECKSUM: 923c16f8c3918ff9207c4f78beb0854a5f11ff06
 
 COCOAPODS: 1.5.0
