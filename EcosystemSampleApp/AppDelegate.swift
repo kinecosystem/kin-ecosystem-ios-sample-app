@@ -7,19 +7,17 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
+import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        if  let path = Bundle.main.path(forResource: "fabric", ofType: "txt"),
-            let _ = try? String(contentsOfFile: path) {
-                Fabric.with([Crashlytics.self])
-        }
+        BITHockeyManager.shared().configure(withIdentifier: "b652ffb01ad64bdeabe07a50b2a8d8d1")
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
         return true
     }
 
