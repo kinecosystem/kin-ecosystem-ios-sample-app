@@ -18,6 +18,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newUserButton: UIButton!
     @IBOutlet weak var spendIndicator: UIActivityIndicatorView!
     @IBOutlet weak var buyStickerButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var appKey: String? {
         return configValue(for: "appKey", of: String.self)
@@ -57,6 +58,8 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUserLabel.text = lastUser
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        titleLabel.text = "\(version)"
     }
     
     func alertConfigIssue() {
@@ -162,11 +165,10 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
                                                         "typ": "jwt",
                                                         "kid" : "default-rs512"],
-                                               body: ["offer":["id":"WOWOMGCRAZY"+"\(arc4random_uniform(999999))",
-                                                "title":"Native Spend",
-                                                "description":"A native spend example",
-                                                "amount":10,
-                                                "wallet_address": "GDSXU3DVE3M3CTWXGN3DOLJHRDQLII3WV3GUGK5ZDQGWWDHKJFHRVGNB"]],
+                                               body: ["offer":["id":"WOWOMGCRAZY"+"\(arc4random_uniform(999999))", "amount":10],
+                                                      "sender": ["title":"Native Spend",
+                                                                 "description":"A native spend example",
+                                                                 "user_id":this.lastUser]],
                                                subject: "spend",
                                                id: id, privateKey: jwtPKey) else {
                                                 this.alertConfigIssue()

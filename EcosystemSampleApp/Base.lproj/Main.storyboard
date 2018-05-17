@@ -35,12 +35,12 @@
                                             <constraint firstAttribute="height" constant="156" id="xEY-SF-Wxv"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kin Marketplace Sample App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDd-2H-tbS">
-                                        <rect key="frame" x="77.5" y="314.5" width="220" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDd-2H-tbS">
+                                        <rect key="frame" x="172.5" y="314.5" width="30" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.5" id="sME-6W-dhg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.3665980995" green="0.4019234478" blue="0.51380604510000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -140,6 +140,7 @@
                         <outlet property="currentUserLabel" destination="SRd-bx-wBE" id="CJM-o4-Cwn"/>
                         <outlet property="newUserButton" destination="yO7-Yb-Spq" id="vU7-xB-WY6"/>
                         <outlet property="spendIndicator" destination="uM8-2O-gfe" id="qig-0d-l0H"/>
+                        <outlet property="titleLabel" destination="VDd-2H-tbS" id="mna-Nn-5mK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCR-GG-cmi" userLabel="First Responder" sceneMemberID="firstResponder"/>
