@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD3BE5D711154C561990E6C3 /* Pods_EcosystemSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 684598B7E4863D55E1C8F0F5 /* Pods_EcosystemSampleApp.framework */; };
+		C0C0F8299C9DEE0723DEA6D7 /* Pods_EcosystemSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF18EE428DB2C6700DB126F /* Pods_EcosystemSampleApp.framework */; };
 		E93F448A209A07DA00803FFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942F92320346A6200DD4B8E /* Assets.xcassets */; };
 		E942F91D20346A6200DD4B8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91C20346A6200DD4B8E /* AppDelegate.swift */; };
 		E942F91F20346A6200DD4B8E /* SampleAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91E20346A6200DD4B8E /* SampleAppViewController.swift */; };
@@ -18,9 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		259FF1E4CF78A3EBB97F7ED8 /* Pods-EcosystemSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.release.xcconfig"; sourceTree = "<group>"; };
-		304DE706B8030A43A02798EC /* Pods-EcosystemSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
-		684598B7E4863D55E1C8F0F5 /* Pods_EcosystemSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcosystemSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EF18EE428DB2C6700DB126F /* Pods_EcosystemSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcosystemSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65370C29F9776286DED1DCE3 /* Pods-EcosystemSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		7427BCF20E95961BB9F18B74 /* Pods-EcosystemSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.release.xcconfig"; sourceTree = "<group>"; };
 		E904414C2035662B00E3E261 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414D2035662B00E3E261 /* KinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414E2035662B00E3E261 /* StellarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StellarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,18 +40,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD3BE5D711154C561990E6C3 /* Pods_EcosystemSampleApp.framework in Frameworks */,
+				C0C0F8299C9DEE0723DEA6D7 /* Pods_EcosystemSampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F76DF043FEC9D5EBA255A65 /* Pods */ = {
+		0062588F439EE939686D35C7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				304DE706B8030A43A02798EC /* Pods-EcosystemSampleApp.debug.xcconfig */,
-				259FF1E4CF78A3EBB97F7ED8 /* Pods-EcosystemSampleApp.release.xcconfig */,
+				65370C29F9776286DED1DCE3 /* Pods-EcosystemSampleApp.debug.xcconfig */,
+				7427BCF20E95961BB9F18B74 /* Pods-EcosystemSampleApp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -62,7 +62,7 @@
 				E942F91B20346A6200DD4B8E /* EcosystemSampleApp */,
 				E942F91A20346A6200DD4B8E /* Products */,
 				E942F94820346B7000DD4B8E /* Frameworks */,
-				3F76DF043FEC9D5EBA255A65 /* Pods */,
+				0062588F439EE939686D35C7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,7 +95,7 @@
 				E904414C2035662B00E3E261 /* CoreDataStack.framework */,
 				E904414D2035662B00E3E261 /* KinSDK.framework */,
 				E904414E2035662B00E3E261 /* StellarKit.framework */,
-				684598B7E4863D55E1C8F0F5 /* Pods_EcosystemSampleApp.framework */,
+				3EF18EE428DB2C6700DB126F /* Pods_EcosystemSampleApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,12 +107,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E942F92B20346A6200DD4B8E /* Build configuration list for PBXNativeTarget "EcosystemSampleApp" */;
 			buildPhases = (
-				C88449E090F77B56B4806493 /* [CP] Check Pods Manifest.lock */,
+				952CF3A2F2BFDF8040C76331 /* [CP] Check Pods Manifest.lock */,
 				E942F91520346A6200DD4B8E /* Sources */,
 				E942F91620346A6200DD4B8E /* Frameworks */,
 				E942F91720346A6200DD4B8E /* Resources */,
-				B20DEF916A9800DFE0AE4D76 /* [CP] Embed Pods Frameworks */,
-				F02ADCB6BC0EB3E0EA319D7D /* [CP] Copy Pods Resources */,
+				F30F01C7F20B43A208FEF9D8 /* [CP] Embed Pods Frameworks */,
+				AAF8DCFD3D39041D94B12541 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -173,7 +173,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B20DEF916A9800DFE0AE4D76 /* [CP] Embed Pods Frameworks */ = {
+		952CF3A2F2BFDF8040C76331 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EcosystemSampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAF8DCFD3D39041D94B12541 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F30F01C7F20B43A208FEF9D8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -203,42 +239,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C88449E090F77B56B4806493 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EcosystemSampleApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F02ADCB6BC0EB3E0EA319D7D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -389,12 +389,12 @@
 		};
 		E942F92C20346A6200DD4B8E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 304DE706B8030A43A02798EC /* Pods-EcosystemSampleApp.debug.xcconfig */;
+			baseConfigurationReference = 65370C29F9776286DED1DCE3 /* Pods-EcosystemSampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -411,13 +411,13 @@
 		};
 		E942F92D20346A6200DD4B8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 259FF1E4CF78A3EBB97F7ED8 /* Pods-EcosystemSampleApp.release.xcconfig */;
+			baseConfigurationReference = 7427BCF20E95961BB9F18B74 /* Pods-EcosystemSampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
