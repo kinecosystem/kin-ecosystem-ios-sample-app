@@ -59,7 +59,8 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         currentUserLabel.text = lastUser
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        titleLabel.text = "\(version)"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+        titleLabel.text = "\(version) (\(build))"
     }
     
     func alertConfigIssue() {
@@ -174,8 +175,10 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                                                 this.alertConfigIssue()
                                                 return
             }
-            this.buyStickerButton.isEnabled = false
-            this.spendIndicator.startAnimating()
+            DispatchQueue.main.async {
+                this.buyStickerButton.isEnabled = false
+                this.spendIndicator.startAnimating()
+            }
             _ = Kin.shared.purchase(offerJWT: encoded) { jwtConfirmation, error in
                 DispatchQueue.main.async {
                     this.buyStickerButton.isEnabled = true
@@ -183,12 +186,11 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                     if let confirm = jwtConfirmation {
                         alert.title = "Success"
-                        alert.message = "Purchase complete. You can view the confirmation jwt or tap 'Continue' to enter the marketplace."
+                        alert.message = "Purchase complete. You can view the confirmation on jwt.io"
                         alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default, handler: { [weak alert] action in
                             UIApplication.shared.openURL(URL(string:"https://jwt.io/#debugger-io?token=\(confirm)")!)
                             alert?.dismiss(animated: true, completion: nil)
                         }))
-                        //
                     } else if let e = error {
                         alert.title = "Failure"
                         alert.message = "Purchase failed (\(e))"
