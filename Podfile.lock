@@ -5,13 +5,13 @@ PODS:
   - HockeySDK/DefaultLib (5.1.2)
   - JWT (3.0.0-beta.8):
     - Base64 (~> 1.1.2)
-  - KinEcosystem (0.3.5):
+  - KinEcosystem (0.3.7):
     - KinSDK (= 0.7.5)
-    - SimpleCoreDataStack (= 0.1.4)
+    - SimpleCoreDataStack (= 0.1.6)
   - KinSDK (0.7.5):
     - StellarKit (= 0.3.6)
   - KinUtil (0.0.6)
-  - SimpleCoreDataStack (0.1.4)
+  - SimpleCoreDataStack (0.1.6)
   - StellarErrors (0.2.7)
   - StellarKit (0.3.6):
     - KinUtil (= 0.0.6)
@@ -41,10 +41,10 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
   JWT: 6e7ec473b6febcb7498affc84f0e75d393914411
-  KinEcosystem: 59996a3764296365b2e42dc1e71d12d53aa9bb03
+  KinEcosystem: 4f290132038a4d1b02b97af43c8541f07e83a727
   KinSDK: 0ac7c297288c7b21ccc8e2b59dc490f8ce516cd0
   KinUtil: 1bc7b10d5dec37d268f9c3d18a54b87eba7db2e8
-  SimpleCoreDataStack: e8c9ed9077412acbea3e19cbb11df46cbfb2c2d6
+  SimpleCoreDataStack: 80d9c5efd1861d77432477974b3be410a202bd2f
   StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
   StellarKit: cf90d2b30bbb5499312982197e2cd15374460e67
 
