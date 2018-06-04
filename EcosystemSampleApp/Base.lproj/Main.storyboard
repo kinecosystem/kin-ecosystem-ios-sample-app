@@ -51,7 +51,7 @@
                                             <constraint firstAttribute="height" constant="50" id="dQj-1k-PDC"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="sdW-SE-Qcu"/>
                                         </constraints>
-                                        <state key="normal" title="New User">
+                                        <state key="normal" title="New User (restart)">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -66,7 +66,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="838-ZL-O1D">
                                         <rect key="frame" x="47.5" y="458.5" width="280" height="50"/>
                                         <color key="backgroundColor" red="0.019607843140000001" green="0.58823529409999997" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Continue">
+                                        <state key="normal" title="Launch Marketplace">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
