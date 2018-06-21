@@ -20,6 +20,8 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var buyStickerButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     
+    let environment: Environment = .playground
+    
     var appKey: String? {
         return configValue(for: "appKey", of: String.self)
     }
@@ -104,7 +106,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             do {
-                try Kin.shared.start(apiKey: key, userId: lastUser, appId: id)
+                try Kin.shared.start(userId: lastUser, apiKey: key, appId: id, environment: environment)
             } catch {
                 alertStartError(error)
             }
@@ -123,7 +125,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         
         guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
                                                     "typ": "jwt",
-                                                    "kid" : "default-rs512"],
+                                                    "kid" : "rs512_0"],
                                            body: ["user_id":user],
                                            subject: "register",
                                            id: id, privateKey: jwtPKey) else {
@@ -131,7 +133,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                                             return
         }
         
-        try Kin.shared.start(apiKey: "", userId: user, appId: id, jwt: encoded)
+        try Kin.shared.start(userId: user, jwt: encoded, environment: environment)
         
     }
     
@@ -158,7 +160,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         let offerID = "WOWOMGCRAZY"+"\(arc4random_uniform(999999))"
         guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
                                                     "typ": "jwt",
-                                                    "kid" : "default-rs512"],
+                                                    "kid" : "rs512_0"],
                                            body: ["offer":["id":offerID, "amount":10],
                                                   "sender": ["title":"Native Spend",
                                                              "description":"A native spend example",
@@ -184,7 +186,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                     }))
                 } else if let e = error {
                     alert.title = "Failure"
-                    alert.message = "Purchase failed (\(e))"
+                    alert.message = "Purchase failed (\(e.localizedDescription))"
                 }
                 
                 alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
