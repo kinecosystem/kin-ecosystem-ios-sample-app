@@ -113,6 +113,27 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             
         }
         
+        let offer = NativeOffer(id: "wowowo12345", title: "Renovate!", description: "Your new home", amount: 1000, image: "https://www.makorrishon.co.il/nrg/images/archive/300x225/270/557.jpg")
+        do {
+            try Kin.shared.add(nativeOffer: offer)
+        } catch {
+            print("Nooooooooooooo")
+        }
+        Kin.shared.nativeOfferHandler = { offer in
+            
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Native Offer", message: "You tapped a native offer and the handler was invoked. Would you like to remove the offer?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Keep", style: .cancel, handler: { [weak alert] action in
+                    alert?.dismiss(animated: true, completion: nil)
+                }))
+                alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak alert] action in
+                    try? Kin.shared.remove(nativeOfferId: offer.id)
+                    alert?.dismiss(animated: true, completion: nil)
+                }))
+                self.presentedViewController?.present(alert, animated: true, completion: nil)
+            }
+            
+        }
         Kin.shared.launchMarketplace(from: self)
     }
     
