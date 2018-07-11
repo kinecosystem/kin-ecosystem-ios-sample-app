@@ -4,7 +4,8 @@ This app showcases the use of the [Kin Ecosystem iOS SDK](https://github.com/kin
 
 ## Installation
 1. Clone the repo
-2. Run `pod install`
+2. Clone the repo [Kin Ecosystem iOS SDK](https://github.com/kinecosystem/kin-ecosystem-ios-sdk)
+3. Run `pod install`
 
 ## Usage
 The sample app can authenticate with the kin ecosystem using one of two ways:
