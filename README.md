@@ -2,8 +2,13 @@
 
 This app showcases the use of the [Kin Ecosystem iOS SDK](https://github.com/kinfoundation/kin-ecosystem-ios-sdk).
 
+## Requirements
+
+- xcode 9.4.1
+- cocoapods 1.5.0
+
 ## Installation
-1. Clone the repo
+1. Clone this repo
 2. Run `pod install`
 
 ## Usage
