@@ -5,7 +5,7 @@ PODS:
   - HockeySDK/DefaultLib (5.1.2)
   - JWT (3.0.0-beta.8):
     - Base64 (~> 1.1.2)
-  - KinEcosystem (0.4.6):
+  - KinEcosystem (0.4.8):
     - KinSDK (= 0.7.5)
     - SimpleCoreDataStack (= 0.1.6)
   - KinSDK (0.7.5):
@@ -41,7 +41,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
   JWT: 6e7ec473b6febcb7498affc84f0e75d393914411
-  KinEcosystem: ef75ce07627b9472dae3e86627fa192c098ad5d9
+  KinEcosystem: 678df5e702307e7da04d1277b71013a4e83ed14a
   KinSDK: 0ac7c297288c7b21ccc8e2b59dc490f8ce516cd0
   KinUtil: 1bc7b10d5dec37d268f9c3d18a54b87eba7db2e8
   SimpleCoreDataStack: 80d9c5efd1861d77432477974b3be410a202bd2f
