@@ -218,8 +218,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
+				"${BUILT_PRODUCTS_DIR}/KinCoreSDK/KinCoreSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/KinEcosystem/KinEcosystem.framework",
-				"${BUILT_PRODUCTS_DIR}/KinSDK/KinSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/KinUtil/KinUtil.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleCoreDataStack/CoreDataStack.framework",
 				"${BUILT_PRODUCTS_DIR}/StellarErrors/StellarErrors.framework",
@@ -229,8 +229,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinCoreSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinEcosystem.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinUtil.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreDataStack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StellarErrors.framework",
@@ -396,7 +396,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -418,7 +418,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
