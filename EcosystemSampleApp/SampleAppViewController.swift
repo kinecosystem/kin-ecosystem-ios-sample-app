@@ -16,8 +16,9 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var currentUserLabel: UILabel!
     @IBOutlet weak var newUserButton: UIButton!
-    @IBOutlet weak var spendIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var externalIndicator: UIActivityIndicatorView!
     @IBOutlet weak var buyStickerButton: UIButton!
+    @IBOutlet weak var getKinButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     
     let environment: Environment = .playground
@@ -135,7 +136,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 presentor.present(alert, animated: true, completion: nil)
             }
         }
-        Kin.shared.launchMarketplace(from: self)
+        try? Kin.shared.launchMarketplace(from: self)
     }
     
     func jwtLoginWith(_ user: String, id: String) throws {
@@ -168,7 +169,14 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func buyStickerTapped(_ sender: Any) {
-        
+        externalOfferTapped(false)
+    }
+    
+    @IBAction func requestPaymentTapped(_ sender: Any) {
+        externalOfferTapped(true)
+    }
+    
+    fileprivate func externalOfferTapped(_ earn: Bool) {
         guard   let id = appId,
             let jwtPKey = privateKey else {
                 alertConfigIssue()
@@ -180,7 +188,19 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             alertStartError(error)
         }
         let offerID = "WOWOMGCRAZY"+"\(arc4random_uniform(999999))"
-        guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
+        var encoded: String? = nil
+        if earn {
+            encoded = JWTUtil.encode(header: ["alg": "RS512",
+                                              "typ": "jwt",
+                                              "kid" : "rs512_0"],
+                                     body: ["offer":["id":offerID, "amount":99],
+                                            "recipient": ["title":"Give me Kin",
+                                                          "description":"A native earn example",
+                                                          "user_id":lastUser]],
+                                     subject: "earn",
+                                     id: id, privateKey: jwtPKey)
+        } else {
+            encoded = JWTUtil.encode(header: ["alg": "RS512",
                                                     "typ": "jwt",
                                                     "kid" : "rs512_0"],
                                            body: ["offer":["id":offerID, "amount":10],
@@ -188,27 +208,31 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                                                              "description":"A native spend example",
                                                              "user_id":lastUser]],
                                            subject: "spend",
-                                           id: id, privateKey: jwtPKey) else {
-                                            alertConfigIssue()
-                                            return
+                                           id: id, privateKey: jwtPKey)
+        }
+        guard let encodedJWT = encoded else {
+            alertConfigIssue()
+            return
         }
         buyStickerButton.isEnabled = false
-        spendIndicator.startAnimating()
-        _ = Kin.shared.purchase(offerJWT: encoded) { jwtConfirmation, error in
+        getKinButton.isEnabled = false
+        externalIndicator.startAnimating()
+        let handler: ExternalOfferCallback = { jwtConfirmation, error in
             DispatchQueue.main.async { [weak self] in
                 self?.buyStickerButton.isEnabled = true
-                self?.spendIndicator.stopAnimating()
+                self?.getKinButton.isEnabled = true
+                self?.externalIndicator.stopAnimating()
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 if let confirm = jwtConfirmation {
                     alert.title = "Success"
-                    alert.message = "Purchase complete. You can view the confirmation on jwt.io"
+                    alert.message = "\(earn ? "Earn" : "Purchase") complete. You can view the confirmation on jwt.io"
                     alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default, handler: { [weak alert] action in
                         UIApplication.shared.openURL(URL(string:"https://jwt.io/#debugger-io?token=\(confirm)")!)
                         alert?.dismiss(animated: true, completion: nil)
                     }))
                 } else if let e = error {
                     alert.title = "Failure"
-                    alert.message = "Purchase failed (\(e.localizedDescription))"
+                    alert.message = "\(earn ? "Earn" : "Purchase") failed (\(e.localizedDescription))"
                 }
                 
                 alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
@@ -217,6 +241,11 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 
                 self?.present(alert, animated: true, completion: nil)
             }
+        }
+        if earn {
+            _ = Kin.shared.requestPayment(offerJWT: encodedJWT, completion: handler)
+        } else {
+            _ = Kin.shared.purchase(offerJWT: encodedJWT, completion: handler)
         }
     }
 }

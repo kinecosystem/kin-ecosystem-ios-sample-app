@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3vJ-qj-IoG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3vJ-qj-IoG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -103,7 +103,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aty-Ph-D33">
-                                <rect key="frame" x="81.5" y="617" width="212" height="30"/>
+                                <rect key="frame" x="81.5" y="582" width="212" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7mm-R7-odN"/>
                                     <constraint firstAttribute="width" constant="212" id="pgt-UE-KFU"/>
@@ -113,8 +113,19 @@
                                     <action selector="buyStickerTapped:" destination="3vJ-qj-IoG" eventType="touchUpInside" id="dRc-67-kWD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGe-3G-Nis">
+                                <rect key="frame" x="81" y="624" width="212" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ILB-vq-X5P"/>
+                                    <constraint firstAttribute="width" constant="212" id="kVj-p7-Ije"/>
+                                </constraints>
+                                <state key="normal" title="Earn Kin (native earn)"/>
+                                <connections>
+                                    <action selector="requestPaymentTapped:" destination="3vJ-qj-IoG" eventType="touchUpInside" id="d6u-yn-ST0"/>
+                                </connections>
+                            </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uM8-2O-gfe">
-                                <rect key="frame" x="303.5" y="622" width="20" height="20"/>
+                                <rect key="frame" x="177" y="608" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="FvT-Cf-pDk"/>
                                     <constraint firstAttribute="height" constant="20" id="u2c-C4-Gc6"/>
@@ -123,14 +134,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iGe-3G-Nis" firstAttribute="top" secondItem="uM8-2O-gfe" secondAttribute="bottom" constant="-4" id="4K8-gk-QhT"/>
                             <constraint firstItem="lle-UR-pca" firstAttribute="leading" secondItem="rUh-Au-2YO" secondAttribute="leading" id="4TF-Jj-CMf"/>
-                            <constraint firstItem="rUh-Au-2YO" firstAttribute="bottom" secondItem="aty-Ph-D33" secondAttribute="bottom" constant="20" id="AlO-Or-1s7"/>
+                            <constraint firstItem="rUh-Au-2YO" firstAttribute="bottom" secondItem="aty-Ph-D33" secondAttribute="bottom" constant="55" id="AlO-Or-1s7"/>
+                            <constraint firstItem="uM8-2O-gfe" firstAttribute="top" secondItem="aty-Ph-D33" secondAttribute="bottom" constant="-4" id="Dqp-xZ-KFd"/>
                             <constraint firstItem="lle-UR-pca" firstAttribute="top" secondItem="rUh-Au-2YO" secondAttribute="top" id="KoY-oM-UOV"/>
+                            <constraint firstItem="iGe-3G-Nis" firstAttribute="centerX" secondItem="uM8-2O-gfe" secondAttribute="centerX" id="NrZ-it-2Vy"/>
                             <constraint firstItem="rUh-Au-2YO" firstAttribute="trailing" secondItem="lle-UR-pca" secondAttribute="trailing" id="UEq-xR-ILu"/>
+                            <constraint firstItem="uM8-2O-gfe" firstAttribute="centerX" secondItem="aty-Ph-D33" secondAttribute="centerX" id="Zav-tc-cio"/>
                             <constraint firstItem="rUh-Au-2YO" firstAttribute="bottom" secondItem="lle-UR-pca" secondAttribute="bottom" id="jeE-ud-by7"/>
-                            <constraint firstItem="uM8-2O-gfe" firstAttribute="leading" secondItem="aty-Ph-D33" secondAttribute="trailing" constant="10" id="mFw-BL-QvI"/>
                             <constraint firstItem="aty-Ph-D33" firstAttribute="centerX" secondItem="rUh-Au-2YO" secondAttribute="centerX" id="sTV-9k-Www"/>
-                            <constraint firstItem="uM8-2O-gfe" firstAttribute="centerY" secondItem="aty-Ph-D33" secondAttribute="centerY" id="vbc-cT-7jD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rUh-Au-2YO"/>
                     </view>
@@ -138,8 +151,9 @@
                         <outlet property="buyStickerButton" destination="aty-Ph-D33" id="lSV-Mf-psY"/>
                         <outlet property="continueButton" destination="838-ZL-O1D" id="y6P-Nd-qwH"/>
                         <outlet property="currentUserLabel" destination="SRd-bx-wBE" id="CJM-o4-Cwn"/>
+                        <outlet property="externalIndicator" destination="uM8-2O-gfe" id="agQ-RI-QgA"/>
+                        <outlet property="getKinButton" destination="iGe-3G-Nis" id="cEj-AW-hse"/>
                         <outlet property="newUserButton" destination="yO7-Yb-Spq" id="vU7-xB-WY6"/>
-                        <outlet property="spendIndicator" destination="uM8-2O-gfe" id="qig-0d-l0H"/>
                         <outlet property="titleLabel" destination="VDd-2H-tbS" id="mna-Nn-5mK"/>
                     </connections>
                 </viewController>
