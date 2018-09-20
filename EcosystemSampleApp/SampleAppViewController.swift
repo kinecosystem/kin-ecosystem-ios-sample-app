@@ -10,7 +10,9 @@ import UIKit
 import KinEcosystem
 import JWT
 
-class SampleAppViewController: UIViewController, UITextFieldDelegate {
+class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewControllerDelegate {
+    
+    
     
     
     @IBOutlet weak var continueButton: UIButton!
@@ -20,6 +22,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var buyStickerButton: UIButton!
     @IBOutlet weak var getKinButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var payButton: UIButton!
     
     let environment: Environment = .playground
     
@@ -67,11 +70,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     func alertConfigIssue() {
-        let alert = UIAlertController(title: "Config Missing", message: "an app id and app key (or a jwt) is required in order to use the sample app. Please refer to the readme in the sample app repo for more information", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
-            alert?.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion: nil)
+        presentAlert("Config Missing", body: "an app id and app key (or a jwt) is required in order to use the sample app. Please refer to the readme in the sample app repo for more information")
     }
     
     @IBAction func newUserTapped(_ sender: Any) {
@@ -176,6 +175,13 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         externalOfferTapped(true)
     }
     
+    @IBAction func payToUserTapped(_ sender: Any) {
+        let pt = self.storyboard!.instantiateViewController(withIdentifier: "PayToViewController") as! PayToViewController
+        pt.delegate = self
+        let nc = UINavigationController(rootViewController: pt)
+        self.present(nc, animated: true)
+    }
+    
     fileprivate func externalOfferTapped(_ earn: Bool) {
         guard   let id = appId,
             let jwtPKey = privateKey else {
@@ -186,6 +192,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             try jwtLoginWith(lastUser, id: id)
         } catch {
             alertStartError(error)
+            return
         }
         let offerID = "WOWOMGCRAZY"+"\(arc4random_uniform(999999))"
         var encoded: String? = nil
@@ -214,14 +221,10 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             alertConfigIssue()
             return
         }
-        buyStickerButton.isEnabled = false
-        getKinButton.isEnabled = false
-        externalIndicator.startAnimating()
-        let handler: ExternalOfferCallback = { jwtConfirmation, error in
+        setActionRunning(true)
+        let handler: KinCallback = { jwtConfirmation, error in
             DispatchQueue.main.async { [weak self] in
-                self?.buyStickerButton.isEnabled = true
-                self?.getKinButton.isEnabled = true
-                self?.externalIndicator.stopAnimating()
+                self?.setActionRunning(false)
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 if let confirm = jwtConfirmation {
                     alert.title = "Success"
@@ -247,6 +250,101 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         } else {
             _ = Kin.shared.purchase(offerJWT: encodedJWT, completion: handler)
         }
+    }
+    
+    func payToUserId(_ uid: String) {
+        guard   let id = appId,
+            let jwtPKey = privateKey else {
+                alertConfigIssue()
+                return
+        }
+        do {
+            try jwtLoginWith(lastUser, id: id)
+        } catch {
+            alertStartError(error)
+            return
+        }
+        Kin.shared.hasAccount(peer: uid) { [weak self] response, error in
+            if let response = response {
+                guard response else {
+                    self?.presentAlert("User Not Found", body: "User \(uid) could not be found. Make sure the receiving user has activated kin, and in on the same environment as this user")
+                    return
+                }
+                self?.transferKin(to: uid, appId: id, pKey: jwtPKey)
+            } else if let error = error {
+                self?.presentAlert("An Error Occurred", body: "\(error.localizedDescription)")
+            } else {
+                self?.presentAlert("An Error Occurred", body: "unknown error")
+            }
+        }
+        
+    }
+    
+    fileprivate func presentAlert(_ title: String, body: String?) {
+        let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
+            alert?.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func transferKin(to: String, appId: String, pKey: String) {
+        let offerID = "WOWOMGP2P"+"\(arc4random_uniform(999999))"
+        guard let encoded =  JWTUtil.encode(header: ["alg": "RS512",
+                                                     "typ": "jwt",
+                                                     "kid" : "rs512_0"],
+                                            body: ["offer":["id":offerID, "amount":10],
+                                                   "sender": ["title":"Pay to \(to)",
+                                                    "description":"Kin transfer to \(to)",
+                                                    "user_id":lastUser],
+                                                   "recipient": ["title":"\(lastUser) paid you",
+                                                    "description":"Kin transfer from \(lastUser)",
+                                                    "user_id":to]],
+                                            subject: "pay_to_user",
+                                            id: appId,
+                                            privateKey: pKey) else {
+                                                alertConfigIssue()
+                                                return
+        }
+        setActionRunning(true)
+        let handler: KinCallback = { jwtConfirmation, error in
+            DispatchQueue.main.async { [weak self] in
+                self?.setActionRunning(false)
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+                if let confirm = jwtConfirmation {
+                    alert.title = "Success"
+                    alert.message = "Payment complete. You can view the confirmation on jwt.io"
+                    alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default, handler: { [weak alert] action in
+                        UIApplication.shared.openURL(URL(string:"https://jwt.io/#debugger-io?token=\(confirm)")!)
+                        alert?.dismiss(animated: true, completion: nil)
+                    }))
+                } else if let e = error {
+                    alert.title = "Failure"
+                    alert.message = "Payment failed (\(e.localizedDescription))"
+                }
+                
+                alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
+                    alert?.dismiss(animated: true, completion: nil)
+                }))
+                
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        _ = Kin.shared.payToUser(offerJWT: encoded, completion: handler)
+        
+    }
+    
+    func setActionRunning(_ value: Bool) {
+        newUserButton.isEnabled = !value
+        buyStickerButton.isEnabled = !value
+        getKinButton.isEnabled = !value
+        payButton.isEnabled = !value
+        newUserButton.alpha = value ? 0.3 : 1.0
+        buyStickerButton.alpha = value ? 0.3 : 1.0
+        getKinButton.alpha = value ? 0.3 : 1.0
+        payButton.alpha = value ? 0.3 : 1.0
+        value ? externalIndicator.startAnimating() : externalIndicator.stopAnimating()
     }
 }
 
