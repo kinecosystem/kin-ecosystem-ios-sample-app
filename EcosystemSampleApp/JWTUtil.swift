@@ -13,10 +13,19 @@ import JWT
 
 class JWTUtil {
     static func encode(header: [AnyHashable: Any], body: [AnyHashable: Any], subject: String, id: String, privateKey: String) -> String? {
-        guard let key = try? JWTCryptoKeyPrivate(pemEncoded: privateKey, parameters: nil),
-            let holder = (JWTAlgorithmRSFamilyDataHolder().signKey(key)?.secretData(privateKey.data(using: .utf8))?.algorithmName(JWTAlgorithmNameRS512) as? JWTAlgorithmRSFamilyDataHolder) else {
-                return nil
+        var holder = JWTAlgorithmRSFamilyDataHolder()
+        do {
+            let key = try JWTCryptoKeyPrivate(pemEncoded: privateKey, parameters: nil)
+            holder = holder.keyExtractorType(JWTCryptoKeyExtractor.privateKeyWithPEMBase64()?.type)!
+            holder = holder.privateKeyCertificatePassphrase(nil)!
+            holder = holder.algorithmName(JWTAlgorithmNameRS512) as! JWTAlgorithmRSFamilyDataHolder
+            holder = holder.secretData((privateKey.data(using: .utf8))) as! JWTAlgorithmRSFamilyDataHolder
+            holder = holder.signKey(key)!
+        } catch {
+            print(error)
+            return nil
         }
+        
         let claims = JWTClaimsSet()
         let issuedAt = Date()
         claims.issuer = id
@@ -30,11 +39,12 @@ class JWTUtil {
         for (k, v) in body {
             claimsDict[k] = v
         }
-        guard let result = JWTEncodingBuilder.encodePayload(claimsDict)
-            .headers(header)?
-            .addHolder(holder)?
-            .result.successResult?.encoded else {
-                return nil
+        var builder = JWTEncodingBuilder.encodePayload(claimsDict)
+        builder = builder?.headers(header)
+        let coder = builder?.addHolder(holder)
+        
+        guard let result = coder?.result.successResult?.encoded else {
+            return nil
         }
         return result
     }
