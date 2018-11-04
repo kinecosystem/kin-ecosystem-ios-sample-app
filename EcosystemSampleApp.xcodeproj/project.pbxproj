@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7CC65EE14654DBE07CA821F9 /* Pods_EcosystemSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881D1704359F377BDBACD03D /* Pods_EcosystemSampleApp.framework */; };
+		E4FF7755607931F3436E946F /* Pods_EcosystemSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA61FEAB509791A4B45B7B /* Pods_EcosystemSampleApp.framework */; };
 		E93F448A209A07DA00803FFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942F92320346A6200DD4B8E /* Assets.xcassets */; };
 		E942F91D20346A6200DD4B8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91C20346A6200DD4B8E /* AppDelegate.swift */; };
 		E942F91F20346A6200DD4B8E /* SampleAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91E20346A6200DD4B8E /* SampleAppViewController.swift */; };
@@ -19,23 +19,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		047950D702D88FD901F07957 /* Pods-EcosystemSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.release.xcconfig"; sourceTree = "<group>"; };
-		4A20B94976EDF3706344D95E /* Pods-EcosystemSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
-		881D1704359F377BDBACD03D /* Pods_EcosystemSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcosystemSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		475AD01BF042FAA9C2128585 /* Pods-EcosystemSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D1DE5E3F6BD7B9066502F035 /* Pods-EcosystemSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		D7DA61FEAB509791A4B45B7B /* Pods_EcosystemSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcosystemSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414C2035662B00E3E261 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414D2035662B00E3E261 /* KinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414E2035662B00E3E261 /* StellarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StellarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E93228EA217E059C005B273E /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		E93228EB217E059D005B273E /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "pt-BR"; path = "pt-BR.lproj/Main.storyboard"; sourceTree = "<group>"; };
+		E93228EC217E059D005B273E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E93228ED217E059D005B273E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E942F91920346A6200DD4B8E /* EcosystemSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcosystemSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E942F91C20346A6200DD4B8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E942F91E20346A6200DD4B8E /* SampleAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppViewController.swift; sourceTree = "<group>"; };
-		E942F92120346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E942F92320346A6200DD4B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E942F92620346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E942F92820346A6200DD4B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9C952A12091E8A30000E093 /* defaultConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = defaultConfig.plist; sourceTree = "<group>"; };
 		E9DB9E3020A42A6400AD9EB1 /* JWTUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTUtil.swift; sourceTree = "<group>"; };
-		E9DC200D216A431700746B81 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
-		E9DC200E216A431700746B81 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E9FE48B2214E7BA000DD6CE9 /* PayToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayToViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CC65EE14654DBE07CA821F9 /* Pods_EcosystemSampleApp.framework in Frameworks */,
+				E4FF7755607931F3436E946F /* Pods_EcosystemSampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 				E904414C2035662B00E3E261 /* CoreDataStack.framework */,
 				E904414D2035662B00E3E261 /* KinSDK.framework */,
 				E904414E2035662B00E3E261 /* StellarKit.framework */,
-				881D1704359F377BDBACD03D /* Pods_EcosystemSampleApp.framework */,
+				D7DA61FEAB509791A4B45B7B /* Pods_EcosystemSampleApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,8 +116,8 @@
 				E942F91520346A6200DD4B8E /* Sources */,
 				E942F91620346A6200DD4B8E /* Frameworks */,
 				E942F91720346A6200DD4B8E /* Resources */,
-				52477E466B3F26268734332D /* [CP] Copy Pods Resources */,
-				5686569D77FD3E95F24DE8EF /* [CP] Embed Pods Frameworks */,
+				0B3522494F87EEC6E6024455 /* [CP] Copy Pods Resources */,
+				2E0FD9F0D5B8A5D183440CF9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,7 +151,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = E942F91020346A6200DD4B8E;
 			productRefGroup = E942F91A20346A6200DD4B8E /* Products */;
@@ -200,7 +199,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5686569D77FD3E95F24DE8EF /* [CP] Embed Pods Frameworks */ = {
+		2E0FD9F0D5B8A5D183440CF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -278,8 +277,8 @@
 		E942F92020346A6200DD4B8E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E942F92120346A6200DD4B8E /* Base */,
-				E9DC200D216A431700746B81 /* pt-BR */,
+				E93228EB217E059D005B273E /* pt-BR */,
+				E93228ED217E059D005B273E /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -287,8 +286,8 @@
 		E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E942F92620346A6200DD4B8E /* Base */,
-				E9DC200E216A431700746B81 /* pt-BR */,
+				E93228EA217E059C005B273E /* pt-BR */,
+				E93228EC217E059D005B273E /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
