@@ -12,9 +12,6 @@ import JWT
 
 class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewControllerDelegate {
     
-    
-    
-    
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var currentUserLabel: UILabel!
     @IBOutlet weak var newUserButton: UIButton!
@@ -24,7 +21,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
     
-    let environment: Environment = .playground
+    let environment: Environment = .beta
     
     var appKey: String? {
         return configValue(for: "appKey", of: String.self)
@@ -67,6 +64,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
         titleLabel.text = "\(version) (\(build))"
+        startKin()
     }
     
     func alertConfigIssue() {
@@ -89,6 +87,10 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     }
     
     @IBAction func continueTapped(_ sender: Any) {
+        try? Kin.shared.launchMarketplace(from: self)
+    }
+    
+    func startKin() {
         guard let id = appId else {
             alertConfigIssue()
             return
@@ -135,7 +137,6 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
                 presentor.present(alert, animated: true, completion: nil)
             }
         }
-        try? Kin.shared.launchMarketplace(from: self)
     }
     
     func jwtLoginWith(_ user: String, id: String) throws {
@@ -155,7 +156,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
                                             return
         }
         
-        try Kin.shared.start(userId: user, jwt: encoded, environment: environment)
+        try Kin.shared.start(userId: user, appId: id, jwt: encoded, environment: environment)
         
     }
     

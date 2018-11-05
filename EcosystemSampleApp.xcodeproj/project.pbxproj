@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7CC65EE14654DBE07CA821F9 /* Pods_EcosystemSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881D1704359F377BDBACD03D /* Pods_EcosystemSampleApp.framework */; };
 		E93F448A209A07DA00803FFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942F92320346A6200DD4B8E /* Assets.xcassets */; };
 		E942F91D20346A6200DD4B8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91C20346A6200DD4B8E /* AppDelegate.swift */; };
 		E942F91F20346A6200DD4B8E /* SampleAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91E20346A6200DD4B8E /* SampleAppViewController.swift */; };
@@ -15,13 +16,12 @@
 		E9C952A22091E8A30000E093 /* defaultConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* defaultConfig.plist */; };
 		E9DB9E3120A42A6400AD9EB1 /* JWTUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB9E3020A42A6400AD9EB1 /* JWTUtil.swift */; };
 		E9FE48B3214E7BA000DD6CE9 /* PayToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE48B2214E7BA000DD6CE9 /* PayToViewController.swift */; };
-		F0D49D24702244BD5F90B8B5 /* Pods_EcosystemSampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51A4AC668A47E4E3A4AB4ADE /* Pods_EcosystemSampleApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		475AD01BF042FAA9C2128585 /* Pods-EcosystemSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
-		51A4AC668A47E4E3A4AB4ADE /* Pods_EcosystemSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcosystemSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1DE5E3F6BD7B9066502F035 /* Pods-EcosystemSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		047950D702D88FD901F07957 /* Pods-EcosystemSampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		4A20B94976EDF3706344D95E /* Pods-EcosystemSampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcosystemSampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		881D1704359F377BDBACD03D /* Pods_EcosystemSampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcosystemSampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414C2035662B00E3E261 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414D2035662B00E3E261 /* KinSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KinSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E904414E2035662B00E3E261 /* StellarKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StellarKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,29 +44,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D49D24702244BD5F90B8B5 /* Pods_EcosystemSampleApp.framework in Frameworks */,
+				7CC65EE14654DBE07CA821F9 /* Pods_EcosystemSampleApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		55AAC39C3AC7C7A99EE2791B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				475AD01BF042FAA9C2128585 /* Pods-EcosystemSampleApp.debug.xcconfig */,
-				D1DE5E3F6BD7B9066502F035 /* Pods-EcosystemSampleApp.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E942F91020346A6200DD4B8E = {
 			isa = PBXGroup;
 			children = (
 				E942F91B20346A6200DD4B8E /* EcosystemSampleApp */,
 				E942F91A20346A6200DD4B8E /* Products */,
 				E942F94820346B7000DD4B8E /* Frameworks */,
-				55AAC39C3AC7C7A99EE2791B /* Pods */,
+				F9FD3103D9CF287BF1EFC02E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,9 +91,18 @@
 				E904414C2035662B00E3E261 /* CoreDataStack.framework */,
 				E904414D2035662B00E3E261 /* KinSDK.framework */,
 				E904414E2035662B00E3E261 /* StellarKit.framework */,
-				51A4AC668A47E4E3A4AB4ADE /* Pods_EcosystemSampleApp.framework */,
+				881D1704359F377BDBACD03D /* Pods_EcosystemSampleApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F9FD3103D9CF287BF1EFC02E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4A20B94976EDF3706344D95E /* Pods-EcosystemSampleApp.debug.xcconfig */,
+				047950D702D88FD901F07957 /* Pods-EcosystemSampleApp.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,12 +112,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E942F92B20346A6200DD4B8E /* Build configuration list for PBXNativeTarget "EcosystemSampleApp" */;
 			buildPhases = (
-				6C1577989A16841D222D2B63 /* [CP] Check Pods Manifest.lock */,
+				98500010841F8BD74E7BE750 /* [CP] Check Pods Manifest.lock */,
 				E942F91520346A6200DD4B8E /* Sources */,
 				E942F91620346A6200DD4B8E /* Frameworks */,
 				E942F91720346A6200DD4B8E /* Resources */,
-				582C4873C51CF85532614501 /* [CP] Embed Pods Frameworks */,
-				0B3522494F87EEC6E6024455 /* [CP] Copy Pods Resources */,
+				52477E466B3F26268734332D /* [CP] Copy Pods Resources */,
+				5686569D77FD3E95F24DE8EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,16 +178,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0B3522494F87EEC6E6024455 /* [CP] Copy Pods Resources */ = {
+		52477E466B3F26268734332D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
 			);
@@ -196,10 +200,12 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		582C4873C51CF85532614501 /* [CP] Embed Pods Frameworks */ = {
+		5686569D77FD3E95F24DE8EF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-frameworks.sh",
@@ -213,6 +219,8 @@
 				"${BUILT_PRODUCTS_DIR}/StellarKit/StellarKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
@@ -228,16 +236,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EcosystemSampleApp/Pods-EcosystemSampleApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6C1577989A16841D222D2B63 /* [CP] Check Pods Manifest.lock */ = {
+		98500010841F8BD74E7BE750 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-EcosystemSampleApp-checkManifestLockResult.txt",
 			);
@@ -400,13 +412,13 @@
 		};
 		E942F92C20346A6200DD4B8E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 475AD01BF042FAA9C2128585 /* Pods-EcosystemSampleApp.debug.xcconfig */;
+			baseConfigurationReference = 4A20B94976EDF3706344D95E /* Pods-EcosystemSampleApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -422,13 +434,13 @@
 		};
 		E942F92D20346A6200DD4B8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1DE5E3F6BD7B9066502F035 /* Pods-EcosystemSampleApp.release.xcconfig */;
+			baseConfigurationReference = 047950D702D88FD901F07957 /* Pods-EcosystemSampleApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
