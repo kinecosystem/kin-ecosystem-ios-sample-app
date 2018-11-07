@@ -21,7 +21,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
     
-    let environment: Environment = .production
+    let environment: Environment = .playground
     
     var appKey: String? {
         return configValue(for: "appKey", of: String.self)
