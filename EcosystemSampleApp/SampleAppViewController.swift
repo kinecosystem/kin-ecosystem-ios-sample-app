@@ -120,6 +120,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
                                 description: "Your new home",
                                 amount: 1000,
                                 image: "https://www.makorrishon.co.il/nrg/images/archive/300x225/270/557.jpg",
+                                offerType: .earn,
                                 isModal: true)
         do {
             try Kin.shared.add(nativeOffer: offer)
@@ -181,6 +182,18 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
         pt.delegate = self
         let nc = UINavigationController(rootViewController: pt)
         self.present(nc, animated: true)
+    }
+    
+    @IBAction func userStats(_ sender: Any) {
+        Kin.shared.userStats { [weak self] stats, error in
+            if let result = stats {
+                self?.presentAlert("User Stats", body: result.description)
+            } else if let err = error {
+                self?.presentAlert("Error", body: err.localizedDescription)
+            } else {
+                self?.presentAlert("Error", body: "Unknown Error")
+            }
+        }
     }
     
     fileprivate func externalOfferTapped(_ earn: Bool) {
