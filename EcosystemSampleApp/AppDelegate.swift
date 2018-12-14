@@ -9,6 +9,7 @@
 import UIKit
 import HockeySDK
 import KinEcosystem
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

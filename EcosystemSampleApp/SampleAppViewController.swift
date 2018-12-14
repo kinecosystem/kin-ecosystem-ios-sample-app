@@ -87,7 +87,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     }
     
     @IBAction func continueTapped(_ sender: Any) {
-        try? Kin.shared.launchMarketplace(from: self)
+        try? Kin.shared.launchEcosystem(from: self)
     }
     
     func startKin() {
