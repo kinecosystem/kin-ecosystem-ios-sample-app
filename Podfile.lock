@@ -7,7 +7,7 @@ PODS:
     - Base64 (~> 1.1.2)
   - KinCoreSDK (0.7.12):
     - StellarKit (= 0.3.6)
-  - KinEcosystem (0.5.8):
+  - KinEcosystem (0.5.9):
     - KinCoreSDK (= 0.7.12)
     - SimpleCoreDataStack (= 0.1.6)
   - KinUtil (0.0.6)
@@ -42,12 +42,12 @@ SPEC CHECKSUMS:
   HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
   KinCoreSDK: 395e8780a84c5ee79899372ad803ad71c87f17f5
-  KinEcosystem: 104c16371eadd13fd2e3f678457c2aec3f9873d5
+  KinEcosystem: bb26d5285d30d07b1a576148fb462ab0f5a83793
   KinUtil: 1bc7b10d5dec37d268f9c3d18a54b87eba7db2e8
   SimpleCoreDataStack: 80d9c5efd1861d77432477974b3be410a202bd2f
   StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
   StellarKit: cf90d2b30bbb5499312982197e2cd15374460e67
 
-PODFILE CHECKSUM: ff27cb9f61b4919f2f3c2ea42a7e2e7acef8a044
+PODFILE CHECKSUM: 1f3c58f6eefc1bc85152e8aed448fc3d631e9fdd
 
 COCOAPODS: 1.5.0
