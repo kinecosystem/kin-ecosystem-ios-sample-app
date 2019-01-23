@@ -18,11 +18,7 @@ wjTP0YtgWsSesfy6IsTW0WG7eoZczRJbwncCQQCjcf0HPmGuErxz5dEJXmn0HA5v
 8f6Tf/ThtEv5uoT0nRiZAkBnWFvJ7RPFcbsKJzNfciakbpi0Hn9W1m+PTa2OfvQH
 KaZ/jti09jWmU9sPwS2xxOAgx9w0kVViwWaZuypBNrTc
 -----END RSA PRIVATE KEY-----</string>
-	<key>appKey</key>
-	<string>A2XEJTdN8hGiuUvg9VSHZ</string>
 	<key>appId</key>
 	<string>test</string>
-	<key>IS_JWT_REGISTRATION</key>
-	<true/>
 </dict>
 </plist>

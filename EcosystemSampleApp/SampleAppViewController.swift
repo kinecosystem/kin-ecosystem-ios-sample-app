@@ -10,11 +10,12 @@ import UIKit
 import KinEcosystem
 import JWT
 
-class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewControllerDelegate {
+class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var currentUserLabel: UILabel!
-    @IBOutlet weak var newUserButton: UIButton!
+    @IBOutlet weak var loginOutButton: UIButton!
     @IBOutlet weak var externalIndicator: UIActivityIndicatorView!
     @IBOutlet weak var buyStickerButton: UIButton!
     @IBOutlet weak var getKinButton: UIButton!
@@ -22,6 +23,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     @IBOutlet weak var payButton: UIButton!
     
     let environment: Environment = .beta
+    let kid = "rs512_0"
     
     var appKey: String? {
         return configValue(for: "appKey", of: String.self)
@@ -31,24 +33,32 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
         return configValue(for: "appId", of: String.self)
     }
     
-    var useJWT: Bool {
-        return configValue(for: "IS_JWT_REGISTRATION", of: Bool.self) ?? false
-    }
-    
     var privateKey: String? {
         return configValue(for: "RS512_PRIVATE_KEY", of: String.self)
     }
     
-    var lastUser: String {
+    var lastUser: String? {
         get {
             if let user = UserDefaults.standard.string(forKey: "SALastUser") {
                 return user
             }
-            let first = "user_\(arc4random_uniform(99999))_0"
-            UserDefaults.standard.set(first, forKey: "SALastUser")
-            return first
+            return nil
         }
     }
+    
+    lazy var deviceId: String = {
+        var identifier: String
+        if let vendorIdentifier = UIDevice.current.identifierForVendor?.uuidString {
+            identifier = vendorIdentifier
+        } else if let uuid = UserDefaults.standard.string(forKey: "sampleAppDeviceIdentifier") {
+            identifier = uuid
+        } else {
+            let uuid = UUID().uuidString
+            UserDefaults.standard.set(uuid, forKey: "sampleAppDeviceIdentifier")
+            identifier = uuid
+        }
+        return identifier
+    }()
     
     func configValue<T>(for key: String, of type: T.Type) -> T? {
         if  let path = Bundle.main.path(forResource: "defaultConfig", ofType: "plist"),
@@ -60,30 +70,34 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentUserLabel.text = lastUser
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
         titleLabel.text = "\(version) (\(build))"
+        _ = Kin.shared.addBalanceObserver { balance in
+            DispatchQueue.main.async {
+                self.balanceLabel.text = "\(balance.amount) K"
+            }
+        }
         startKin()
+        Kin.shared.orderConfirmation(for: "NSOffer_01") { status, error in
+            if let s = status, case let .completed(jwt) = s {
+                print("order complete. jwt confirmation is: \(jwt)")
+            } else {
+                // handle errors
+            }
+        }
     }
     
     func alertConfigIssue() {
         presentAlert("Config Missing", body: "an app id and app key (or a jwt) is required in order to use the sample app. Please refer to the readme in the sample app repo for more information")
     }
     
-    @IBAction func newUserTapped(_ sender: Any) {
-        
-        let numberIndex = lastUser.index(after: lastUser.range(of: "_", options: [.backwards])!.lowerBound)
-        let plusone = Int(lastUser.suffix(from: numberIndex))! + 1
-        let newUser = String(lastUser.prefix(upTo: numberIndex) + "\(plusone)")
-        UserDefaults.standard.set(newUser, forKey: "SALastUser")
-        currentUserLabel.text = lastUser
-        let alert = UIAlertController(title: "Please Restart", message: "A new user was created.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { action in
-            exit(0)
-        }))
-        self.present(alert, animated: true, completion: nil)
-        
+    @IBAction func loginOutButtonTapped(_ sender: Any) {
+        Kin.shared.logout()
+        currentUserLabel.text = nil
+        loginOutButton.setTitle("Login", for: .normal)
+        UserDefaults.standard.removeObject(forKey: "SALastUser")
+        presentLogin(animated: true)
     }
     
     @IBAction func continueTapped(_ sender: Any) {
@@ -91,39 +105,29 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     }
     
     func startKin() {
-        guard let id = appId else {
-            alertConfigIssue()
-            return
-        }
         
-        if useJWT {
-            do {
-                try jwtLoginWith(lastUser, id: id)
-            } catch {
-                alertStartError(error)
-            }
-        } else {
-            guard let key = appKey else {
-                alertConfigIssue()
-                return
-            }
-            do {
-                try Kin.shared.start(userId: lastUser, apiKey: key, appId: id, environment: environment)
-            } catch {
-                alertStartError(error)
-            }
-            
-        }
-        
-        let offer = NativeOffer(id: "wowowo12345",
-                                title: "Renovate!",
-                                description: "Your new home",
-                                amount: 1000,
-                                image: "https://www.makorrishon.co.il/nrg/images/archive/300x225/270/557.jpg",
-                                offerType: .earn,
-                                isModal: true)
         do {
-            try Kin.shared.add(nativeOffer: offer)
+            try jwtLogin()
+        } catch {
+            alertStartError(error)
+        }
+        let sOffer = NativeOffer(id: "NSOffer_01",
+                                title: "Buy this!",
+                                description: "It's amazing",
+                                amount: 1000,
+                                image: "https://s3.amazonaws.com/assets.kinecosystembeta.com/images/spend_test.png",
+                                offerType: .spend,
+                                isModal: true)
+        let eOffer = NativeOffer(id: "NEOffer_01",
+                                 title: "Get Kin!",
+                                 description: "It's Free!",
+                                 amount: 10,
+                                 image: "https://s3.amazonaws.com/assets.kinecosystembeta.com/images/native_earn_padding.png",
+                                 offerType: .earn,
+                                 isModal: true)
+        do {
+            try Kin.shared.add(nativeOffer: sOffer)
+            try Kin.shared.add(nativeOffer: eOffer)
         } catch {
             print("failed to add native offer, error: \(error)")
         }
@@ -140,25 +144,62 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
         }
     }
     
-    func jwtLoginWith(_ user: String, id: String) throws {
+    func presentLogin(animated: Bool) {
+        let pt = self.storyboard!.instantiateViewController(withIdentifier: "TargetUserViewController") as! TargetUserViewController
+        pt.title = "Login"
+        pt.selectBlock = { [weak self] userId in
+            guard let this = self else { return }
+            //self?.currentUserLabel.text = lastUser
+            defer {
+                this.setActionRunning(true)
+                UserDefaults.standard.set(userId, forKey: "SALastUser")
+                try? this.jwtLogin() { error in
+                    this.setActionRunning(false)
+                    if let e = error {
+                        this.presentAlert("Login failed", body: "error: \(e.localizedDescription)")
+                    }
+                }
+            }
+            this.dismiss(animated: true)
+        }
+        let nc = UINavigationController(rootViewController: pt)
+        self.present(nc, animated: animated)
+    }
+    
+    func jwtLogin(callback: KinLoginCallback? = nil) throws {
         
-        guard  let jwtPKey = privateKey else {
+        guard let user = lastUser else {
+            loginOutButton.setTitle("Login", for: .normal)
+            presentLogin(animated: true)
+            return
+        }
+        
+        
+        guard   let jwtPKey = privateKey,
+                let id = appId else {
             alertConfigIssue()
             return
         }
         
         guard let encoded = JWTUtil.encode(header: ["alg": "RS512",
                                                     "typ": "jwt",
-                                                    "kid" : "rs512_0"],
-                                           body: ["user_id":user],
+                                                    "kid" : kid],
+                                           body: ["user_id": user,
+                                                  "device_id": deviceId],
                                            subject: "register",
                                            id: id, privateKey: jwtPKey) else {
                                             alertConfigIssue()
                                             return
         }
         
-        try Kin.shared.start(userId: user, appId: id, jwt: encoded, environment: environment)
-        
+        try Kin.shared.start(environment: environment)
+        try Kin.shared.login(jwt: encoded) { [weak self] e in
+            DispatchQueue.main.async {
+                self?.currentUserLabel.text = self?.lastUser
+                self?.loginOutButton.setTitle("Logout", for: .normal)
+                callback?(e)
+            }
+        }
     }
     
     fileprivate func alertStartError(_ error: Error) {
@@ -178,8 +219,11 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     }
     
     @IBAction func payToUserTapped(_ sender: Any) {
-        let pt = self.storyboard!.instantiateViewController(withIdentifier: "PayToViewController") as! PayToViewController
-        pt.delegate = self
+        let pt = self.storyboard!.instantiateViewController(withIdentifier: "TargetUserViewController") as! TargetUserViewController
+        pt.title = "Pay to User"
+        pt.selectBlock = { [weak self] userId in
+            self?.payToUserId(userId)
+        }
         let nc = UINavigationController(rootViewController: pt)
         self.present(nc, animated: true)
     }
@@ -198,12 +242,12 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     
     fileprivate func externalOfferTapped(_ earn: Bool) {
         guard   let id = appId,
-            let jwtPKey = privateKey else {
+                let jwtPKey = privateKey else {
                 alertConfigIssue()
                 return
         }
         do {
-            try jwtLoginWith(lastUser, id: id)
+            try jwtLogin()
         } catch {
             alertStartError(error)
             return
@@ -213,21 +257,23 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
         if earn {
             encoded = JWTUtil.encode(header: ["alg": "RS512",
                                               "typ": "jwt",
-                                              "kid" : "rs512_0"],
+                                              "kid" : kid],
                                      body: ["offer":["id":offerID, "amount":99],
                                             "recipient": ["title":"Give me Kin",
                                                           "description":"A native earn example",
-                                                          "user_id":lastUser]],
+                                                          "user_id":lastUser,
+                                                          "device_id": deviceId]],
                                      subject: "earn",
                                      id: id, privateKey: jwtPKey)
         } else {
             encoded = JWTUtil.encode(header: ["alg": "RS512",
                                                     "typ": "jwt",
-                                                    "kid" : "rs512_0"],
+                                                    "kid" : kid],
                                            body: ["offer":["id":offerID, "amount":10],
                                                   "sender": ["title":"Native Spend",
                                                              "description":"A native spend example",
-                                                             "user_id":lastUser]],
+                                                             "user_id":lastUser,
+                                                             "device_id": deviceId]],
                                            subject: "spend",
                                            id: id, privateKey: jwtPKey)
         }
@@ -273,11 +319,12 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
                 return
         }
         do {
-            try jwtLoginWith(lastUser, id: id)
+            try jwtLogin()
         } catch {
             alertStartError(error)
             return
         }
+        
         Kin.shared.hasAccount(peer: uid) { [weak self] response, error in
             if let response = response {
                 guard response else {
@@ -303,16 +350,21 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     }
     
     fileprivate func transferKin(to: String, appId: String, pKey: String) {
+        guard let user = lastUser else {
+            presentAlert("Not logged in", body: "try logging in.")
+            return
+        }
         let offerID = "WOWOMGP2P"+"\(arc4random_uniform(999999))"
         guard let encoded =  JWTUtil.encode(header: ["alg": "RS512",
                                                      "typ": "jwt",
-                                                     "kid" : "rs512_0"],
+                                                     "kid" : kid],
                                             body: ["offer":["id":offerID, "amount":10],
                                                    "sender": ["title":"Pay to \(to)",
                                                     "description":"Kin transfer to \(to)",
-                                                    "user_id":lastUser],
-                                                   "recipient": ["title":"\(lastUser) paid you",
-                                                    "description":"Kin transfer from \(lastUser)",
+                                                    "user_id":lastUser,
+                                                    "device_id": deviceId],
+                                                   "recipient": ["title":"\(user) paid you",
+                                                    "description":"Kin transfer from \(user)",
                                                     "user_id":to]],
                                             subject: "pay_to_user",
                                             id: appId,
@@ -350,15 +402,17 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate, PayToViewC
     }
     
     func setActionRunning(_ value: Bool) {
-        newUserButton.isEnabled = !value
+        loginOutButton.isEnabled = !value
         buyStickerButton.isEnabled = !value
         getKinButton.isEnabled = !value
         payButton.isEnabled = !value
-        newUserButton.alpha = value ? 0.3 : 1.0
+        loginOutButton.alpha = value ? 0.3 : 1.0
         buyStickerButton.alpha = value ? 0.3 : 1.0
         getKinButton.alpha = value ? 0.3 : 1.0
         payButton.alpha = value ? 0.3 : 1.0
         value ? externalIndicator.startAnimating() : externalIndicator.stopAnimating()
     }
+    
+    
 }
 
