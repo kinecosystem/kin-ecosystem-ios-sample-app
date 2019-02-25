@@ -1,26 +1,31 @@
 PODS:
   - Base64 (1.1.2)
-  - HockeySDK (5.1.2):
-    - HockeySDK/DefaultLib (= 5.1.2)
-  - HockeySDK/DefaultLib (5.1.2)
+  - HockeySDK (5.1.4):
+    - HockeySDK/DefaultLib (= 5.1.4)
+  - HockeySDK/DefaultLib (5.1.4)
   - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
-  - KinCoreSDK (0.7.12):
-    - StellarKit (= 0.3.6)
-  - KinEcosystem (0.6.3):
-    - KinCoreSDK (= 0.7.12)
+  - KinCoreSDK (0.7.17):
+    - Sodium (= 0.7.0)
+    - StellarKit (= 0.3.14)
+  - KinEcosystem (0.6.4):
+    - KinCoreSDK (= 0.7.17)
+    - MoveKin (= 0.1.0)
     - SimpleCoreDataStack (= 0.1.6)
-  - KinUtil (0.0.6)
+  - KinUtil (0.0.16)
+  - MoveKin (0.1.0):
+    - StellarKit (~> 0.3.12)
   - SimpleCoreDataStack (0.1.6)
+  - Sodium (0.7.0)
   - StellarErrors (0.2.7)
-  - StellarKit (0.3.6):
-    - KinUtil (= 0.0.6)
+  - StellarKit (0.3.14):
+    - KinUtil (= 0.0.16)
     - StellarErrors (= 0.2.7)
 
 DEPENDENCIES:
   - HockeySDK
   - JWT (= 3.0.0-beta.11)
-  - KinEcosystem (= 0.6.3)
+  - KinEcosystem (from `../kin-ecosystem-ios-sdk/KinEcosystem.podspec`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -28,23 +33,30 @@ SPEC REPOS:
     - HockeySDK
     - JWT
     - KinCoreSDK
-    - KinEcosystem
     - KinUtil
+    - MoveKin
     - SimpleCoreDataStack
+    - Sodium
     - StellarErrors
     - StellarKit
 
+EXTERNAL SOURCES:
+  KinEcosystem:
+    :path: "../kin-ecosystem-ios-sdk/KinEcosystem.podspec"
+
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  HockeySDK: 38b7e2726af1ea86ae97ce4b5de33ab0817e3500
+  HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
-  KinCoreSDK: 395e8780a84c5ee79899372ad803ad71c87f17f5
-  KinEcosystem: 655616b6d11a4451f1ad539e5e68385c180d23cd
-  KinUtil: 1bc7b10d5dec37d268f9c3d18a54b87eba7db2e8
+  KinCoreSDK: a0d1fd398e262f1fd3db70ec93045d9d9d9f2b5e
+  KinEcosystem: e1c0a8859580ed3fd3663529a6c3f31daff33cb5
+  KinUtil: 00442723f29cfa38f2410f9d4dba5a28937ed4ad
+  MoveKin: db108481de98795b6cf1c719ef0999a4b142feb5
   SimpleCoreDataStack: 80d9c5efd1861d77432477974b3be410a202bd2f
+  Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
   StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
-  StellarKit: cf90d2b30bbb5499312982197e2cd15374460e67
+  StellarKit: e9325dee370a10bda1a82ac7488900ddc697ef98
 
-PODFILE CHECKSUM: 26f6e1012b3bc4da43f7a50aeb7db6de075f2390
+PODFILE CHECKSUM: 1f3c58f6eefc1bc85152e8aed448fc3d631e9fdd
 
 COCOAPODS: 1.5.0
