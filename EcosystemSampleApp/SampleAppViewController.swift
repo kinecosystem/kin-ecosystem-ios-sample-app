@@ -101,7 +101,27 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func continueTapped(_ sender: Any) {
-        try? Kin.shared.launchEcosystem(from: self)
+        
+        let alert = UIAlertController(title: "Select experience", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Marketplace", style: .default, handler: { _ in
+            try? Kin.shared.launchEcosystem(from: self)
+        }))
+        alert.addAction(UIAlertAction(title: "History", style: .default, handler: { _ in
+            try? Kin.shared.launchEcosystem(from: self, at: .history)
+        }))
+        alert.addAction(UIAlertAction(title: "Backup", style: .default, handler: { _ in
+            try? Kin.shared.launchEcosystem(from: self, at: .backup({ completed in
+                print("Backup \(completed)")
+            }))
+        }))
+        alert.addAction(UIAlertAction(title: "Restore", style: .default, handler: { _ in
+            try? Kin.shared.launchEcosystem(from: self, at: .restore({ completed in
+                print("Restore \(completed)")
+            }))
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     func startKin() {
@@ -134,10 +154,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         Kin.shared.nativeOfferHandler = { offer in
             DispatchQueue.main.async {
                 let alert = UIAlertController(title: "Native Offer", message: "You tapped a native offer and the handler was invoked.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
-                    alert?.dismiss(animated: true, completion: nil)
-                }))
-                
+                alert.addAction(UIAlertAction(title: "Close", style: .cancel))
                 let presentor = self.presentedViewController ?? self
                 presentor.present(alert, animated: true, completion: nil)
             }
@@ -204,9 +221,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func alertStartError(_ error: Error) {
         let alert = UIAlertController(title: "Start failed", message: "Error: \(error)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
-            alert?.dismiss(animated: true, completion: nil)
-        }))
+        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -289,18 +304,15 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 if let confirm = jwtConfirmation {
                     alert.title = "Success"
                     alert.message = "\(earn ? "Earn" : "Purchase") complete. You can view the confirmation on jwt.io"
-                    alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default, handler: { [weak alert] action in
+                    alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default) { _ in
                         UIApplication.shared.openURL(URL(string:"https://jwt.io/#debugger-io?token=\(confirm)")!)
-                        alert?.dismiss(animated: true, completion: nil)
-                    }))
+                    })
                 } else if let e = error {
                     alert.title = "Failure"
                     alert.message = "\(earn ? "Earn" : "Purchase") failed (\(e.localizedDescription))"
                 }
                 
-                alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
-                    alert?.dismiss(animated: true, completion: nil)
-                }))
+                alert.addAction(UIAlertAction(title: "Close", style: .cancel))
                 
                 self?.present(alert, animated: true, completion: nil)
             }
@@ -343,9 +355,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func presentAlert(_ title: String, body: String?) {
         let alert = UIAlertController(title: title, message: body, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel, handler: { [weak alert] action in
-            alert?.dismiss(animated: true, completion: nil)
-        }))
+        alert.addAction(UIAlertAction(title: "Oh ok", style: .cancel))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -380,18 +390,15 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 if let confirm = jwtConfirmation {
                     alert.title = "Success"
                     alert.message = "Payment complete. You can view the confirmation on jwt.io"
-                    alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default, handler: { [weak alert] action in
+                    alert.addAction(UIAlertAction(title: "View on jwt.io", style: .default) { _ in
                         UIApplication.shared.openURL(URL(string:"https://jwt.io/#debugger-io?token=\(confirm)")!)
-                        alert?.dismiss(animated: true, completion: nil)
-                    }))
+                    })
                 } else if let e = error {
                     alert.title = "Failure"
                     alert.message = "Payment failed (\(e.localizedDescription))"
                 }
                 
-                alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { [weak alert] action in
-                    alert?.dismiss(animated: true, completion: nil)
-                }))
+                alert.addAction(UIAlertAction(title: "Close", style: .cancel))
                 
                 self?.present(alert, animated: true, completion: nil)
             }

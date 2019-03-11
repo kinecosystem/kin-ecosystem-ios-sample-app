@@ -8,7 +8,7 @@ PODS:
   - KinCoreSDK (0.7.17):
     - Sodium (= 0.7.0)
     - StellarKit (= 0.3.14)
-  - KinEcosystem (0.6.4):
+  - KinEcosystem (0.8.0):
     - KinCoreSDK (= 0.7.17)
     - MoveKin (= 0.1.0)
     - SimpleCoreDataStack (= 0.1.6)
@@ -28,7 +28,7 @@ DEPENDENCIES:
   - KinEcosystem (from `../kin-ecosystem-ios-sdk/KinEcosystem.podspec`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Base64
     - HockeySDK
     - JWT
@@ -49,7 +49,7 @@ SPEC CHECKSUMS:
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
   KinCoreSDK: a0d1fd398e262f1fd3db70ec93045d9d9d9f2b5e
-  KinEcosystem: e1c0a8859580ed3fd3663529a6c3f31daff33cb5
+  KinEcosystem: 264c62eeb549f92501cca57ba31407a019d973e6
   KinUtil: 00442723f29cfa38f2410f9d4dba5a28937ed4ad
   MoveKin: db108481de98795b6cf1c719ef0999a4b142feb5
   SimpleCoreDataStack: 80d9c5efd1861d77432477974b3be410a202bd2f
@@ -59,4 +59,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1f3c58f6eefc1bc85152e8aed448fc3d631e9fdd
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.6.1
