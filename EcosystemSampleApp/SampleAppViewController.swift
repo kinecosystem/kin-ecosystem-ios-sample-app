@@ -25,16 +25,12 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     let environment: Environment = .beta
     let kid = "rs512_0"
     
-    var appKey: String? {
-        return configValue(for: "appKey", of: String.self)
-    }
-    
     var appId: String? {
-        return configValue(for: "appId", of: String.self)
+        return ApplicationKeys.AppId.isEmpty == false ? ApplicationKeys.AppId : configValue(for: "appId", of: String.self)
     }
     
     var privateKey: String? {
-        return configValue(for: "RS512_PRIVATE_KEY", of: String.self)
+        return ApplicationKeys.AppPrivateKey.isEmpty == false ? ApplicationKeys.AppPrivateKey : configValue(for: "RS512_PRIVATE_KEY", of: String.self)
     }
     
     var lastUser: String? {
