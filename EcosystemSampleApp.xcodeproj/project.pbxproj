@@ -13,6 +13,7 @@
 		E942F91F20346A6200DD4B8E /* SampleAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942F91E20346A6200DD4B8E /* SampleAppViewController.swift */; };
 		E942F92220346A6200DD4B8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92020346A6200DD4B8E /* Main.storyboard */; };
 		E942F92720346A6200DD4B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942F92520346A6200DD4B8E /* LaunchScreen.storyboard */; };
+		E96E3B88225356E8005677E3 /* ApplicationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96E3B87225356E8005677E3 /* ApplicationKeys.swift */; };
 		E9C952A22091E8A30000E093 /* defaultConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9C952A12091E8A30000E093 /* defaultConfig.plist */; };
 		E9DB9E3120A42A6400AD9EB1 /* JWTUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DB9E3020A42A6400AD9EB1 /* JWTUtil.swift */; };
 		E9FE48B3214E7BA000DD6CE9 /* TargetUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FE48B2214E7BA000DD6CE9 /* TargetUserViewController.swift */; };
@@ -32,6 +33,7 @@
 		E942F92320346A6200DD4B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E942F92620346A6200DD4B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E942F92820346A6200DD4B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E96E3B87225356E8005677E3 /* ApplicationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationKeys.swift; sourceTree = "<group>"; };
 		E9C952A12091E8A30000E093 /* defaultConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = defaultConfig.plist; sourceTree = "<group>"; };
 		E9DB9E3020A42A6400AD9EB1 /* JWTUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTUtil.swift; sourceTree = "<group>"; };
 		E9DC200D216A431700746B81 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				E9C952A12091E8A30000E093 /* defaultConfig.plist */,
 				E9DB9E3020A42A6400AD9EB1 /* JWTUtil.swift */,
 				E9FE48B2214E7BA000DD6CE9 /* TargetUserViewController.swift */,
+				E96E3B87225356E8005677E3 /* ApplicationKeys.swift */,
 			);
 			path = EcosystemSampleApp;
 			sourceTree = "<group>";
@@ -214,8 +217,9 @@
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
 				"${BUILT_PRODUCTS_DIR}/KinCoreSDK/KinCoreSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/KinEcosystem/KinEcosystem.framework",
+				"${BUILT_PRODUCTS_DIR}/KinMigrationModule/KinMigrationModule.framework",
+				"${BUILT_PRODUCTS_DIR}/KinSDK/KinSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/KinUtil/KinUtil.framework",
-				"${BUILT_PRODUCTS_DIR}/MoveKin/MoveKin.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleCoreDataStack/CoreDataStack.framework",
 				"${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework",
 				"${BUILT_PRODUCTS_DIR}/StellarErrors/StellarErrors.framework",
@@ -229,8 +233,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinCoreSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinEcosystem.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinMigrationModule.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KinUtil.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoveKin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreDataStack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StellarErrors.framework",
@@ -273,6 +278,7 @@
 				E9FE48B3214E7BA000DD6CE9 /* TargetUserViewController.swift in Sources */,
 				E9DB9E3120A42A6400AD9EB1 /* JWTUtil.swift in Sources */,
 				E942F91F20346A6200DD4B8E /* SampleAppViewController.swift in Sources */,
+				E96E3B88225356E8005677E3 /* ApplicationKeys.swift in Sources */,
 				E942F91D20346A6200DD4B8E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,7 +363,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -410,7 +416,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "$(ecosystem-sample-app-enterprise)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -423,7 +429,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -445,7 +451,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = Z37J743B3H;
 				INFOPLIST_FILE = EcosystemSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

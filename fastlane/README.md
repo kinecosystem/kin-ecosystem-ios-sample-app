@@ -20,7 +20,7 @@ or alternatively using `brew cask install fastlane`
 ```
 fastlane ios beta
 ```
-Distribute a build to crashlytics
+Distribute a build to hocky
 
 ----
 

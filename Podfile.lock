@@ -5,27 +5,32 @@ PODS:
   - HockeySDK/DefaultLib (5.1.4)
   - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
-  - KinCoreSDK (0.7.17):
-    - Sodium (= 0.7.0)
-    - StellarKit (= 0.3.14)
-  - KinEcosystem (0.8.0):
-    - KinCoreSDK (= 0.7.17)
-    - MoveKin (= 0.1.0)
+  - KinCoreSDK (0.8.0):
+    - Sodium (= 0.8.0)
+    - StellarKit (= 0.4.0)
+  - KinEcosystem (0.9.0):
+    - KinMigrationModule (= 0.1.0)
     - SimpleCoreDataStack (= 0.1.6)
-  - KinUtil (0.0.16)
-  - MoveKin (0.1.0):
-    - StellarKit (~> 0.3.12)
+  - KinMigrationModule (0.1.0):
+    - KinCoreSDK (= 0.8.0)
+    - KinSDK (= 0.9.0)
+    - Sodium (= 0.8.0)
+  - KinSDK (0.9.0):
+    - KinUtil (= 0.1.0)
+    - Sodium (= 0.8.0)
+  - KinUtil (0.1.0)
   - SimpleCoreDataStack (0.1.6)
-  - Sodium (0.7.0)
-  - StellarErrors (0.2.7)
-  - StellarKit (0.3.14):
-    - KinUtil (= 0.0.16)
-    - StellarErrors (= 0.2.7)
+  - Sodium (0.8.0)
+  - StellarErrors (0.4.0)
+  - StellarKit (0.4.0):
+    - KinUtil (= 0.1.0)
+    - StellarErrors (= 0.4.0)
 
 DEPENDENCIES:
   - HockeySDK
   - JWT (= 3.0.0-beta.11)
   - KinEcosystem (from `../kin-ecosystem-ios-sdk/KinEcosystem.podspec`)
+  - KinMigrationModule (from `../kin-migration-module-ios/KinMigrationModule.podspec`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -33,8 +38,8 @@ SPEC REPOS:
     - HockeySDK
     - JWT
     - KinCoreSDK
+    - KinSDK
     - KinUtil
-    - MoveKin
     - SimpleCoreDataStack
     - Sodium
     - StellarErrors
@@ -43,20 +48,23 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   KinEcosystem:
     :path: "../kin-ecosystem-ios-sdk/KinEcosystem.podspec"
+  KinMigrationModule:
+    :path: "../kin-migration-module-ios/KinMigrationModule.podspec"
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
-  KinCoreSDK: a0d1fd398e262f1fd3db70ec93045d9d9d9f2b5e
-  KinEcosystem: 264c62eeb549f92501cca57ba31407a019d973e6
-  KinUtil: 00442723f29cfa38f2410f9d4dba5a28937ed4ad
-  MoveKin: db108481de98795b6cf1c719ef0999a4b142feb5
+  KinCoreSDK: 419f6736c8aefcc0aef8ad45fa9032890ae6672e
+  KinEcosystem: b9caeeb3cd5e24155027604d603f94338fc0bd1f
+  KinMigrationModule: 0f14c64bfb6e1046bd137ab829264223c20905ec
+  KinSDK: 24cbb5cf8b560c6025eacabc1b5aebbe5938c141
+  KinUtil: 5ba64858ba2f24156d6e229c963b37f8d808bd4c
   SimpleCoreDataStack: 80d9c5efd1861d77432477974b3be410a202bd2f
-  Sodium: c5510cc6f5e1b27858e5f260b5cac80d4a3f9379
-  StellarErrors: f9239fad02b05464fbc9845063195a87d28f57d1
-  StellarKit: e9325dee370a10bda1a82ac7488900ddc697ef98
+  Sodium: 63c0ca312a932e6da481689537d4b35568841bdc
+  StellarErrors: 936a03ecd2c92d073f4c3ec706ec4e8a4440cbd1
+  StellarKit: b30586085ec19e16a66467bdff9bab743cfd0e5e
 
-PODFILE CHECKSUM: 1f3c58f6eefc1bc85152e8aed448fc3d631e9fdd
+PODFILE CHECKSUM: 73506f31d744ec61d1e4d6f0ace7ca83bdf9fd7c
 
 COCOAPODS: 1.6.1

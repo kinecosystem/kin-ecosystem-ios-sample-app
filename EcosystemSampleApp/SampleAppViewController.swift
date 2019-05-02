@@ -25,16 +25,12 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     let environment: Environment = .beta
     let kid = "rs512_0"
     
-    var appKey: String? {
-        return configValue(for: "appKey", of: String.self)
-    }
-    
     var appId: String? {
-        return configValue(for: "appId", of: String.self)
+        return ApplicationKeys.AppId.isEmpty == false ? ApplicationKeys.AppId : configValue(for: "appId", of: String.self)
     }
     
     var privateKey: String? {
-        return configValue(for: "RS512_PRIVATE_KEY", of: String.self)
+        return ApplicationKeys.AppPrivateKey.isEmpty == false ? ApplicationKeys.AppPrivateKey : configValue(for: "RS512_PRIVATE_KEY", of: String.self)
     }
     
     var lastUser: String? {
@@ -79,17 +75,11 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             }
         }
         startKin()
-        Kin.shared.orderConfirmation(for: "NSOffer_01") { status, error in
-            if let s = status, case let .completed(jwt) = s {
-                print("order complete. jwt confirmation is: \(jwt)")
-            } else {
-                // handle errors
-            }
-        }
     }
     
     func alertConfigIssue() {
         presentAlert("Config Missing", body: "an app id and app key (or a jwt) is required in order to use the sample app. Please refer to the readme in the sample app repo for more information")
+        setActionRunning(false)
     }
     
     @IBAction func loginOutButtonTapped(_ sender: Any) {
@@ -168,7 +158,6 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
             guard let this = self else { return }
             //self?.currentUserLabel.text = lastUser
             defer {
-                this.setActionRunning(true)
                 UserDefaults.standard.set(userId, forKey: "SALastUser")
                 try? this.jwtLogin() { error in
                     this.setActionRunning(false)
@@ -208,12 +197,13 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                                             alertConfigIssue()
                                             return
         }
-        
+        setActionRunning(true)
         try Kin.shared.start(environment: environment)
         try Kin.shared.login(jwt: encoded) { [weak self] e in
             DispatchQueue.main.async {
                 self?.currentUserLabel.text = self?.lastUser
                 self?.loginOutButton.setTitle("Logout", for: .normal)
+                self?.setActionRunning(false)
                 callback?(e)
             }
         }
@@ -261,11 +251,13 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 alertConfigIssue()
                 return
         }
-        do {
-            try jwtLogin()
-        } catch {
-            alertStartError(error)
-            return
+        if Kin.shared.isActivated == false {
+            do {
+                try jwtLogin()
+            } catch {
+                alertStartError(error)
+                return
+            }
         }
         let offerID = "WOWOMGCRAZY"+"\(arc4random_uniform(999999))"
         var encoded: String? = nil
@@ -330,11 +322,13 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                 alertConfigIssue()
                 return
         }
-        do {
-            try jwtLogin()
-        } catch {
-            alertStartError(error)
-            return
+        if Kin.shared.isActivated == false {
+            do {
+                try jwtLogin()
+            } catch {
+                alertStartError(error)
+                return
+            }
         }
         
         Kin.shared.hasAccount(peer: uid) { [weak self] response, error in
