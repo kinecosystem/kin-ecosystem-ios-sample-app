@@ -57,7 +57,6 @@
 				7885FAD88BCC380656B9C924 /* Pods-EcosystemSampleApp.debug.xcconfig */,
 				BA99F20D27689732882E93AE /* Pods-EcosystemSampleApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -153,6 +152,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = E942F91020346A6200DD4B8E;
 			productRefGroup = E942F91A20346A6200DD4B8E /* Products */;
