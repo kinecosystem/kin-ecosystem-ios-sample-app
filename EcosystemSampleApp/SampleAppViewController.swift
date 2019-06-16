@@ -22,8 +22,8 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
     
-    let environment: Environment = .beta
-    let kid = "rs512_0"
+    let environment: Environment = .test
+    let kid = "rs512_1"
     
     var appId: String? {
         return ApplicationKeys.AppId.isEmpty == false ? ApplicationKeys.AppId : configValue(for: "appId", of: String.self)
