@@ -27,7 +27,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     var appreciationViewController: KinAppreciationViewController?
     private var giftUserId: String?
 
-    let environment: Environment = .beta
+    let environment: Environment = .test
     let kid = "rs512_0"
     
     var appId: String? {
