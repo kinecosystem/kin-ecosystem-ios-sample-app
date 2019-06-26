@@ -9,6 +9,7 @@
 import UIKit
 import KinEcosystem
 import JWT
+import KinAppreciationModuleOptionsMenu
 
 class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
@@ -21,7 +22,11 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var getKinButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
-    
+
+    var balance: Decimal = 0
+    var appreciationViewController: KinAppreciationViewController?
+    private var giftUserId: String?
+
     let environment: Environment = .beta
     let kid = "rs512_0"
     
@@ -71,6 +76,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         titleLabel.text = "\(version) (\(build))"
         _ = Kin.shared.addBalanceObserver { balance in
             DispatchQueue.main.async {
+                self.balance = balance.amount
                 self.balanceLabel.text = "\(balance.amount) K"
             }
         }
@@ -224,15 +230,46 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func payToUserTapped(_ sender: Any) {
-        let pt = self.storyboard!.instantiateViewController(withIdentifier: "TargetUserViewController") as! TargetUserViewController
-        pt.title = "Pay to User"
-        pt.selectBlock = { [weak self] userId in
+        let alertController = UIAlertController(title: "Gift / Pay to User", message: nil, preferredStyle: .alert)
+
+        let giftAction = UIAlertAction(title: "Gift", style: .default) { [weak self] _ in
+            guard let textField = alertController.textFields?.first, let userId = textField.text, let strongSelf = self else {
+                return
+            }
+
+            strongSelf.giftUserId = userId
+
+            let viewController = KinAppreciationViewController(balance: strongSelf.balance, theme: .light)
+            viewController.delegate = strongSelf
+            viewController.biDelegate = strongSelf
+            strongSelf.appreciationViewController = viewController
+            strongSelf.present(viewController, animated: true)
+        }
+        let payAction = UIAlertAction(title: "Pay", style: .default) { [weak self] _ in
+            guard let textField = alertController.textFields?.first, let userId = textField.text else {
+                return
+            }
+
             self?.payToUserId(userId)
         }
-        let nc = UINavigationController(rootViewController: pt)
-        self.present(nc, animated: true)
+        alertController.addTextField { textField in
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { _ in
+                let hasText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0 > 0
+
+                giftAction.isEnabled = hasText
+                payAction.isEnabled = hasText
+            })
+        }
+
+        giftAction.isEnabled = false
+        payAction.isEnabled = false
+
+        alertController.addAction(giftAction)
+        alertController.addAction(payAction)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertController, animated: true)
     }
-    
+
     @IBAction func userStats(_ sender: Any) {
         Kin.shared.userStats { [weak self] stats, error in
             if let result = stats {
@@ -413,7 +450,36 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         payButton.alpha = value ? 0.3 : 1.0
         value ? externalIndicator.startAnimating() : externalIndicator.stopAnimating()
     }
-    
-    
 }
 
+extension SampleAppViewController: KinAppreciationViewControllerDelegate {
+    func kinAppreciationViewControllerDidPresent(_ viewController: KinAppreciationViewController) {
+
+    }
+
+    func kinAppreciationViewController(_ viewController: KinAppreciationViewController, didDismissWith reason: KinAppreciationViewController.DismissReason) {
+
+    }
+
+    func kinAppreciationViewController(_ viewController: KinAppreciationViewController, didSelect amount: Decimal) {
+        guard let userId = giftUserId else {
+            return
+        }
+
+        payToUserId(userId)
+    }
+}
+
+extension SampleAppViewController: KinAppreciationBIDelegate {
+    func overlayViewed() {
+
+    }
+
+    func buttonSelected(type: KinButtonType) {
+
+    }
+
+    func closed(reason: KinDismissalReason) {
+
+    }
+}
