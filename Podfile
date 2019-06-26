@@ -2,7 +2,7 @@
 target 'EcosystemSampleApp' do
   use_frameworks!
 
-  pod 'KinMigrationModule', :path => '../kin-migration-module-ios/KinMigrationModule.podspec'
+  pod 'KinMigrationModule', :git => 'https://github.com/kinecosystem/kin-migration-module-ios.git', :tag => '0.1.0'
   pod 'KinEcosystem', :path => '../kin-ecosystem-ios-sdk/KinEcosystem.podspec'
   pod 'JWT', '3.0.0-beta.11', :modular_headers => true
   pod 'HockeySDK', :modular_headers => true
