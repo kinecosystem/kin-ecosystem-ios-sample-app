@@ -353,7 +353,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func payToUserId(_ uid: String) {
+    func payToUserId(_ uid: String, amount: Decimal = 10) {
         guard   let id = appId,
             let jwtPKey = privateKey else {
                 alertConfigIssue()
@@ -374,7 +374,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                     self?.presentAlert("User Not Found", body: "User \(uid) could not be found. Make sure the receiving user has activated kin, and in on the same environment as this user")
                     return
                 }
-                self?.transferKin(to: uid, appId: id, pKey: jwtPKey)
+                self?.transferKin(to: uid, appId: id, pKey: jwtPKey, amount: amount)
             } else if let error = error {
                 self?.presentAlert("An Error Occurred", body: "\(error.localizedDescription)")
             } else {
@@ -390,7 +390,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func transferKin(to: String, appId: String, pKey: String) {
+    fileprivate func transferKin(to: String, appId: String, pKey: String, amount: Decimal) {
         guard let user = lastUser else {
             presentAlert("Not logged in", body: "try logging in.")
             return
@@ -399,7 +399,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         guard let encoded =  JWTUtil.encode(header: ["alg": "RS512",
                                                      "typ": "jwt",
                                                      "kid" : kid],
-                                            body: ["offer":["id":offerID, "amount":10],
+                                            body: ["offer":["id":offerID, "amount":amount],
                                                    "sender": ["title":"Pay to \(to)",
                                                     "description":"Kin transfer to \(to)",
                                                     "user_id":lastUser,
@@ -466,7 +466,9 @@ extension SampleAppViewController: KinAppreciationViewControllerDelegate {
             return
         }
 
-        payToUserId(userId)
+        payToUserId(userId, amount: amount)
+
+        giftUserId = nil
     }
 }
 
