@@ -5,8 +5,7 @@ PODS:
   - HockeySDK/DefaultLib (5.1.4)
   - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
-  - KinAppreciationModuleOptionsMenu (0.0.1):
-    - KinSDK (= 0.9.0)
+  - KinAppreciationModuleOptionsMenu (0.0.1)
   - KinCoreSDK (0.8.0):
     - Sodium (= 0.8.0)
     - StellarKit (= 0.4.0)
@@ -59,7 +58,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   KinAppreciationModuleOptionsMenu:
-    :commit: c48492baccaa2ddeeccf9a1518c90474926d4712
+    :commit: 39280ca37fe4a81b9156a8a60bdabe44b5befa37
     :git: https://github.com/kinecosystem/kin-appreciation-module-options-menu-ios.git
   KinMigrationModule:
     :git: https://github.com/kinecosystem/kin-migration-module-ios.git
@@ -69,7 +68,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   HockeySDK: 15afe6bc0a5bfe3a531fd73dbf082095f37dac3b
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
-  KinAppreciationModuleOptionsMenu: ddbd4746e552657b9e9705b431cf4bfa1d16819f
+  KinAppreciationModuleOptionsMenu: 653e577a1e59b8d0154c45dcde4d947c473502f7
   KinCoreSDK: 419f6736c8aefcc0aef8ad45fa9032890ae6672e
   KinEcosystem: 2b55ee98e82e0001ab4dd8d292bca2f60d8ae347
   KinMigrationModule: 100e1fba8f0825861fce31476d91ba1cc07899e5
@@ -80,6 +79,6 @@ SPEC CHECKSUMS:
   StellarErrors: 936a03ecd2c92d073f4c3ec706ec4e8a4440cbd1
   StellarKit: b30586085ec19e16a66467bdff9bab743cfd0e5e
 
-PODFILE CHECKSUM: 55c25c1d66c5762e8539d47f8c4a1e90ebed4205
+PODFILE CHECKSUM: 3457e1c6b2bae28fdc96d2ec14bafc31ea3a5548
 
 COCOAPODS: 1.7.2

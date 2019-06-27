@@ -1,3 +1,4 @@
+platform :ios, '9.0'
 
 target 'EcosystemSampleApp' do
   use_frameworks!
