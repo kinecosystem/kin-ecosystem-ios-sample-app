@@ -457,7 +457,7 @@ extension SampleAppViewController: KinAppreciationViewControllerDelegate {
 
     }
 
-    func kinAppreciationViewController(_ viewController: KinAppreciationViewController, didDismissWith reason: KinAppreciationViewController.DismissReason) {
+    func kinAppreciationViewController(_ viewController: KinAppreciationViewController, didDismissWith reason: KinAppreciationCancelReason) {
 
     }
 
@@ -473,15 +473,19 @@ extension SampleAppViewController: KinAppreciationViewControllerDelegate {
 }
 
 extension SampleAppViewController: KinAppreciationBIDelegate {
-    func overlayViewed() {
+    func kinAppreciationDidAppear() {
 
     }
 
-    func buttonSelected(type: KinButtonType) {
+    func kinAppreciationDidSelect(amount: Decimal) {
 
     }
 
-    func closed(reason: KinDismissalReason) {
+    func kinAppreciationDidCancel(reason: KinAppreciationCancelReason) {
+
+    }
+
+    func kinAppreciationDidComplete() {
 
     }
 }

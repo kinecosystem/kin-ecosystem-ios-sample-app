@@ -58,7 +58,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   KinAppreciationModuleOptionsMenu:
-    :commit: 39280ca37fe4a81b9156a8a60bdabe44b5befa37
+    :commit: f85bec043d340f95f823dc79e7bada1255e22063
     :git: https://github.com/kinecosystem/kin-appreciation-module-options-menu-ios.git
   KinMigrationModule:
     :git: https://github.com/kinecosystem/kin-migration-module-ios.git
