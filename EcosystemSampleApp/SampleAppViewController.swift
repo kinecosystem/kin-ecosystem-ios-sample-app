@@ -29,7 +29,20 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
 
     let environment: Environment = .test
     let kid = "rs512_0"
-    
+
+    lazy var biClient: BIClient? = {
+        return try? BIClient(endpoint: URL(string: self.environment.BIURL)!)
+    }()
+
+    func trackBI<T: KBIEvent>(block: () throws -> (T)) {
+        do {
+            try biClient?.send(try block())
+        }
+        catch {
+            print(error)
+        }
+    }
+
     var appId: String? {
         return ApplicationKeys.AppId.isEmpty == false ? ApplicationKeys.AppId : configValue(for: "appId", of: String.self)
     }
@@ -474,18 +487,31 @@ extension SampleAppViewController: KinAppreciationViewControllerDelegate {
 
 extension SampleAppViewController: KinAppreciationBIDelegate {
     func kinAppreciationDidAppear() {
-
+        trackBI { try APageViewed(pageName: .giftingDialog) }
     }
 
     func kinAppreciationDidSelect(amount: Decimal) {
-
+        trackBI { try GiftingButtonTapped(kinAmount: NSDecimalNumber(decimal: amount).doubleValue) }
     }
 
     func kinAppreciationDidCancel(reason: KinAppreciationCancelReason) {
-
+        trackBI { try PageCloseTapped(exitType: reason.biMap, pageName: .giftingDialog) }
     }
 
     func kinAppreciationDidComplete() {
+        trackBI { try GiftingFlowCompleted() }
+    }
+}
 
+extension KinAppreciationCancelReason {
+    var biMap: KBITypes.ExitType {
+        switch self {
+        case .closeButton:
+            return .xButton
+        case .hostApplication:
+            return .hostApp
+        case .touchOutside:
+            return .backgroundApp
+        }
     }
 }
