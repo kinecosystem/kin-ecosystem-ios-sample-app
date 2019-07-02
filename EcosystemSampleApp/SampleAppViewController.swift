@@ -9,6 +9,7 @@
 import UIKit
 import KinEcosystem
 import JWT
+import KinAppreciationModuleOptionsMenu
 
 class SampleAppViewController: UIViewController, UITextFieldDelegate {
     
@@ -21,10 +22,27 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var getKinButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var payButton: UIButton!
-    
-    let environment: Environment = .beta
+
+    var balance: Decimal = 0
+    var appreciationViewController: KinAppreciationViewController?
+    private var giftUserId: String?
+
+    let environment: Environment = .test
     let kid = "rs512_0"
-    
+
+    lazy var biClient: BIClient? = {
+        return try? BIClient(endpoint: URL(string: self.environment.BIURL)!)
+    }()
+
+    func trackBI<T: KBIEvent>(block: () throws -> (T)) {
+        do {
+            try biClient?.send(try block())
+        }
+        catch {
+            print(error)
+        }
+    }
+
     var appId: String? {
         return ApplicationKeys.AppId.isEmpty == false ? ApplicationKeys.AppId : configValue(for: "appId", of: String.self)
     }
@@ -71,6 +89,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         titleLabel.text = "\(version) (\(build))"
         _ = Kin.shared.addBalanceObserver { balance in
             DispatchQueue.main.async {
+                self.balance = balance.amount
                 self.balanceLabel.text = "\(balance.amount) K"
             }
         }
@@ -224,15 +243,46 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func payToUserTapped(_ sender: Any) {
-        let pt = self.storyboard!.instantiateViewController(withIdentifier: "TargetUserViewController") as! TargetUserViewController
-        pt.title = "Pay to User"
-        pt.selectBlock = { [weak self] userId in
+        let alertController = UIAlertController(title: "Gift / Pay to User", message: nil, preferredStyle: .alert)
+
+        let giftAction = UIAlertAction(title: "Gift", style: .default) { [weak self] _ in
+            guard let textField = alertController.textFields?.first, let userId = textField.text, let strongSelf = self else {
+                return
+            }
+
+            strongSelf.giftUserId = userId
+
+            let viewController = KinAppreciationViewController(balance: strongSelf.balance, theme: .light)
+            viewController.delegate = strongSelf
+            viewController.biDelegate = strongSelf
+            strongSelf.appreciationViewController = viewController
+            strongSelf.present(viewController, animated: true)
+        }
+        let payAction = UIAlertAction(title: "Pay", style: .default) { [weak self] _ in
+            guard let textField = alertController.textFields?.first, let userId = textField.text else {
+                return
+            }
+
             self?.payToUserId(userId)
         }
-        let nc = UINavigationController(rootViewController: pt)
-        self.present(nc, animated: true)
+        alertController.addTextField { textField in
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: .main, using: { _ in
+                let hasText = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0 > 0
+
+                giftAction.isEnabled = hasText
+                payAction.isEnabled = hasText
+            })
+        }
+
+        giftAction.isEnabled = false
+        payAction.isEnabled = false
+
+        alertController.addAction(giftAction)
+        alertController.addAction(payAction)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertController, animated: true)
     }
-    
+
     @IBAction func userStats(_ sender: Any) {
         Kin.shared.userStats { [weak self] stats, error in
             if let result = stats {
@@ -316,7 +366,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func payToUserId(_ uid: String) {
+    func payToUserId(_ uid: String, amount: Decimal = 10) {
         guard   let id = appId,
             let jwtPKey = privateKey else {
                 alertConfigIssue()
@@ -337,7 +387,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
                     self?.presentAlert("User Not Found", body: "User \(uid) could not be found. Make sure the receiving user has activated kin, and in on the same environment as this user")
                     return
                 }
-                self?.transferKin(to: uid, appId: id, pKey: jwtPKey)
+                self?.transferKin(to: uid, appId: id, pKey: jwtPKey, amount: amount)
             } else if let error = error {
                 self?.presentAlert("An Error Occurred", body: "\(error.localizedDescription)")
             } else {
@@ -353,7 +403,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func transferKin(to: String, appId: String, pKey: String) {
+    fileprivate func transferKin(to: String, appId: String, pKey: String, amount: Decimal) {
         guard let user = lastUser else {
             presentAlert("Not logged in", body: "try logging in.")
             return
@@ -362,7 +412,7 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         guard let encoded =  JWTUtil.encode(header: ["alg": "RS512",
                                                      "typ": "jwt",
                                                      "kid" : kid],
-                                            body: ["offer":["id":offerID, "amount":10],
+                                            body: ["offer":["id":offerID, "amount":amount],
                                                    "sender": ["title":"Pay to \(to)",
                                                     "description":"Kin transfer to \(to)",
                                                     "user_id":lastUser,
@@ -413,7 +463,55 @@ class SampleAppViewController: UIViewController, UITextFieldDelegate {
         payButton.alpha = value ? 0.3 : 1.0
         value ? externalIndicator.startAnimating() : externalIndicator.stopAnimating()
     }
-    
-    
 }
 
+extension SampleAppViewController: KinAppreciationViewControllerDelegate {
+    func kinAppreciationViewControllerDidPresent(_ viewController: KinAppreciationViewController) {
+
+    }
+
+    func kinAppreciationViewController(_ viewController: KinAppreciationViewController, didDismissWith reason: KinAppreciationCancelReason) {
+
+    }
+
+    func kinAppreciationViewController(_ viewController: KinAppreciationViewController, didSelect amount: Decimal) {
+        guard let userId = giftUserId else {
+            return
+        }
+
+        payToUserId(userId, amount: amount)
+
+        giftUserId = nil
+    }
+}
+
+extension SampleAppViewController: KinAppreciationBIDelegate {
+    func kinAppreciationDidAppear() {
+        trackBI { try APageViewed(pageName: .giftingDialog) }
+    }
+
+    func kinAppreciationDidSelect(amount: Decimal) {
+        trackBI { try GiftingButtonTapped(kinAmount: NSDecimalNumber(decimal: amount).doubleValue) }
+    }
+
+    func kinAppreciationDidCancel(reason: KinAppreciationCancelReason) {
+        trackBI { try PageCloseTapped(exitType: reason.biMap, pageName: .giftingDialog) }
+    }
+
+    func kinAppreciationDidComplete() {
+        trackBI { try GiftingFlowCompleted() }
+    }
+}
+
+extension KinAppreciationCancelReason {
+    var biMap: KBITypes.ExitType {
+        switch self {
+        case .closeButton:
+            return .xButton
+        case .hostApplication:
+            return .hostApp
+        case .touchOutside:
+            return .backgroundApp
+        }
+    }
+}
